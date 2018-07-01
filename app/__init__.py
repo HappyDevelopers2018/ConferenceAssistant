@@ -8,17 +8,20 @@ static_folder=os.path.abspath('/home/happy/ConferenceAssistant/app/static'),temp
 def register_blueprints(app):
     # Prevents circular imports
     from .API import zc
-
+    from .API import holy
     app.register_blueprint(zc)
-
+    app.register_blueprint(holy)
 register_blueprints(app)
 
 @app.route('/', methods = ['GET', 'POST'])
-@app.route('/index',methods = ['GET','POST'])
+@app.route('/login',methods = ['GET','POST'])
 def hello_world():
 	#return render_template('index.html');
       return send_file('./templates/index.html')
 
+@app.route('/index',methods = ['GET','POST'])
+def home():
+    return send_file('./templates/home.html')
 
 @app.route('/index_backup',methods = ['GET','POST'])
 def backup():

@@ -139,8 +139,8 @@
     </header>
     <div style="margin-left: 15%;margin-right: 15%; margin-bottom: 3%">
         <form class="form-horizontal">
-
-            <div class="form-group">
+            <!--<a name="dconferenceName"></a>-->
+            <div class="form-group" id="dconferenceName">
                 <label for="conferenceName" class="col-sm-2 control-label"><span class="star">*</span>会议名称</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="conferenceName" placeholder="请输入会议的全名">
@@ -152,31 +152,31 @@
                     <input type="text" class="form-control" id="shortname" placeholder="请输入会议的英文缩写">
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" id="dstartTime">
                 <label for="startTime" class="col-sm-2 control-label"><span class="star">*</span>会议开始日期</label>
                 <div class="col-sm-3">
                     <input type="date" class="form-control" id="startTime">
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" id="dendTime">
                 <label for="endTime" class="col-sm-2 control-label"><span class="star">*</span>会议结束日期</label>
                 <div class="col-sm-3">
                     <input type="date" class="form-control" id="endTime">
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" id="dcity">
                 <label for="city" class="col-sm-2 control-label"><span class="star">*</span>会议所在地</label>
                 <div class="col-sm-5">
                     <input id="city" class="form-control" readonly type="text" data-toggle="city-picker">
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" id="dlocation">
                 <label for="location" class="col-sm-2 control-label"><span class="star">*</span>会议详细地址</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="location" placeholder="会议的详细地址">
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" id="downerOrganization">
                 <label for="ownerOrganization" class="col-sm-2 control-label"><span class="star">*</span>主办单位</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="ownerOrganization" placeholder="请输入会议的主办单位">
@@ -200,8 +200,8 @@
                     <input type="url" class="form-control" id="site" placeholder="请输入会议的网站">
                 </div>
             </div>
-            <div class="form-group">
-                <label for="summernote" class="col-sm-2 control-label">*会议详情</label>
+            <div class="form-group" id="dsummernote">
+                <label for="summernote" class="col-sm-2 control-label">会议详情</label>
                 <div class="col-sm-10">
                    	<div id="summernote"></div>
                 </div>
@@ -221,19 +221,19 @@
     </header>
     <div style="margin-left: 15%;margin-right: 15%; margin-bottom: 3%">
         <form class="form-horizontal">
-            <div class="form-group">
+            <div class="form-group"id="downerPeopleName">
                 <label for="ownerPeopleName" class="col-sm-2 control-label"><span class="star">*</span>姓名</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="ownerPeopleName" placeholder="请输入会议负责人的全名">
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" id="downerPeopleTel">
                 <label for="ownerPeopleTel" class="col-sm-2 control-label"><span class="star">*</span>TEL</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="ownerPeopleTel" placeholder="请输入会议负责人的手机">
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" id="downerPeopleEmail">
                 <label for="ownerPeopleEmail" class="col-sm-2 control-label"><span class="star">*</span>Email</label>
                 <div class="col-sm-10">
                     <input type="email" class="form-control" id="ownerPeopleEmail" placeholder="请输入会议负责人的邮箱">

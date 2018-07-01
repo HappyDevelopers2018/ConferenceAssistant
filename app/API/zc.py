@@ -1,5 +1,8 @@
 from sqlalchemy import create_engine
 from flask  import Flask,request,session,g,redirect,url_for,Blueprint,jsonify
+import os
+from werkzeug.utils import secure_filename
+
 
 # pymysql://root:123456@192.168.168.231:3306/test 
 # 连接数据库的模块：//用户名:密码@ip:端口/数据库
@@ -59,24 +62,57 @@ def login():
 @zc.route('/register',methods=['POST'])
 def register():
       if request.method == 'POST':
-            data = getParam((request.get_data()).decode())
-            print(data)
+            #data = getParam((request.get_data()).decode())
+            print('1')
+            file = request.files['file']
+            print('2')
+            if (file == None):
+                uploadPath = 'NULL'
+            else:
+                basepath = os.path.dirname(__file__)
+                uploadPath = os.path.join(basepath, secure_filename(file.filename))
+                file.save(uploadPath)
+            print(uploadPath)
+            #print(data)
+            print(request.form.get('userName'))
+            print(request.form.get('realName'))
+            print(request.form.get('institude'))
+            print(request.form.get('Email'))
+            print(request.form.get('Password1'))
+            print(request.form.get('identity'))
+
+            print('3')
             try:
-                  engine.execute(insertDB(data,'user'))
-                #   engine.execute(
-                # "INSERT INTO user(name,organization,email,password,identity,realName,filePath) \
-                # VALUES (%(name)s,%(realName)s,%(organization)s,%(email)s,%(password)s, %(identity)s,%(filePath)s,)",
-                # name=data['name'],realName=data['realName'],
-                # organization=data['organization'],email=data['email'],
-                # password=data['password'],identity=data['identity'],
-                # filePath=data['filePath']
-                # )
+                  engine.execute(
+                "INSERT INTO user(name,realName,organization,email,password,identity,filePath) VALUES (%(name)s,%(realName)s,%(organization)s, %(email)s,%(password)s, %(identity)s,%(filePath)s,)",
+                name=request.form.get('userName'),realName=request.form.get('realName'),
+                organization=request.form.get('institude'),email=request.form.get('Email'),
+                password=request.form.get('Password1'),identity=request.form.get('identity'),
+                filePath=uploadPath,
+
+                )
             except:
                   return jsonify({"result":0})
             else:
                   return jsonify({"result":1})
             finally:
                   pass
+            '''
+            try:
+                  engine.execute(
+                "INSERT INTO user(name,realName,organization,email,password,identity,filePath) VALUES (%(name)s,%(realName)s,%(organization)s, %(email)s,%(password)s, %(identity)s,%(filePath)s,)",
+                name=data['userName'],realName=data['realName'],
+                organization=data['institude'],email=data['email'],
+                password=data['password'],identity=data['identity'],
+                filePath="ss",
+
+                )
+            except:
+                  return jsonify({"result":0})
+            else:
+                  return jsonify({"result":1})
+            finally:
+                  pass'''
 
 @zc.route('/registConference',methods=['POST'])
 def registConference():
@@ -128,6 +164,3 @@ def registConference():
 #                          console.log(data)
 #                      }
 #                  });
-
-
-

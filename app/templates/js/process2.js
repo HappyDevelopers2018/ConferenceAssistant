@@ -31,13 +31,53 @@ $(document).ready(function() {
 });
 function nextstep(){
 
+    var detecter=true;
+
+    if($("#contributionStartTime").val()=='')
+    {
+        detecter=false;
+        $("#dcontributionStartTime").addClass("has-error");
+        window.location.href="#dcontributionStartTime";
+    }
+    else
+    {
+        $("#dcontributionStartTime").removeClass("has-error");
+        $("#dcontributionStartTime").addClass("has-success");
+    }
+    if($("#contributionEndTime").val()=='')
+    {
+        detecter=false;
+        $("#dcontributionEndTime").addClass("has-error");
+        window.location.href="#dcontributionEndTime";
+    }
+    else
+    {
+        $("#dcontributionEndTime").removeClass("has-error");
+        $("#dcontributionEndTime").addClass("has-success");
+    }
+
+    if($("#contributionTheme").val()=='')
+    {
+        detecter=false;
+        $("#dcontributionTheme").addClass("has-error");
+        window.location.href="#dcontributionTheme";
+    }
+    else
+    {
+        $("#dcontributionTheme").removeClass("has-error");
+        $("#dcontributionTheme").addClass("has-success");
+    }
+
     sessionStorage.contributionStartTime=$("#contributionStartTime").val();
     sessionStorage.contributionEndTime=$("#contributionEndTime").val();
     sessionStorage.contributionTheme=$("#contributionTheme").val();
     sessionStorage.p2_xiangqing=$("#summernote").summernote('code').toString();
 
+    if(detecter)
+    {
+        window.location.href="process3";
+    }
 
-    window.location.href="process3";
 }
 
 function laststep(){

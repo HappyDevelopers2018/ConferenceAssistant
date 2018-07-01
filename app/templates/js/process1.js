@@ -77,6 +77,123 @@ $(document).ready(function() {
 
 
 function nextstep(){
+
+    var detecter=true;
+
+    //detect
+    if($("#conferenceName").val()=='')
+    {
+        detecter=false;
+        $("#dconferenceName").addClass("has-error");
+        window.location.href="#dconferenceName";
+    }
+    else
+    {
+        $("#dconferenceName").removeClass("has-error");
+        $("#dconferenceName").addClass("has-success");
+    }
+    if($("#startTime").val()=='')
+    {
+        detecter=false;
+        $("#dstartTime").addClass("has-error");
+        window.location.href="#dstartTime";
+    }
+    else
+    {
+        $("#dstartTime").removeClass("has-error");
+        $("#dstartTime").addClass("has-success");
+    }
+
+    if($("#endTime").val()=='')
+    {
+        detecter=false;
+        $("#dendTime").addClass("has-error");
+        window.location.href="#dendTime";
+    }
+    else
+    {
+        $("#dendTime").removeClass("has-error");
+        $("#dendTime").addClass("has-success");
+    }
+    if($("#city").val()=='')
+    {
+        detecter=false;
+        $("#dcity").addClass("has-error");
+        window.location.href="#dcity";
+    }
+    else
+    {
+        $("#dcity").removeClass("has-error");
+        $("#dcity").addClass("has-success");
+    }
+
+    if($("#location").val()=='')
+    {
+        detecter=false;
+        $("#dlocation").addClass("has-error");
+        window.location.href="#dlocation";
+    }
+    else
+    {
+        $("#dlocation").removeClass("has-error");
+        $("#dlocation").addClass("has-success");
+    }
+    if($("#ownerOrganization").val()=='')
+    {
+        detecter=false;
+        $("#downerOrganization").addClass("has-error");
+        window.location.href="#downerOrganization";
+    }
+    else
+    {
+        $("#downerOrganization").removeClass("has-error");
+        $("#downerOrganization").addClass("has-success");
+    }
+
+
+    if($("#ownerPeopleName").val()=='')
+    {
+        detecter=false;
+        $("#downerPeopleName").addClass("has-error");
+        window.location.href="#downerPeopleName";
+    }
+    else
+    {
+        $("#downerPeopleName").removeClass("has-error");
+        $("#downerPeopleName").addClass("has-success");
+    }
+
+    if($("#ownerPeopleTel").val()=='')
+    {
+        detecter=false;
+        $("#downerPeopleTel").addClass("has-error");
+        window.location.href="#downerPeopleTel";
+    }
+    else
+    {
+        $("#downerPeopleTel").removeClass("has-error");
+        $("#downerPeopleTel").addClass("has-success");
+    }
+    if($("#ownerPeopleEmail").val()=='')
+    {
+        detecter=false;
+        $("#downerPeopleEmail").addClass("has-error");
+        window.location.href="#downerPeopleEmail";
+    }
+    else
+    {
+        $("#downerPeopleEmail").removeClass("has-error");
+        $("#downerPeopleEmail").addClass("has-success");
+    }
+
+
+
+
+
+
+
+    //save
+
     var a=$("#summernote").summernote('code').toString();
     sessionStorage.xiangqing=a;
     sessionStorage.conferenceName=$("#conferenceName").val();
@@ -97,5 +214,10 @@ function nextstep(){
     sessionStorage.ownerPeopleEmail=$("#ownerPeopleEmail").val();
 
     console.log($("#city-picker3").val());
-    window.location.href="process2";
+
+    if(detecter)
+    {
+        window.location.href="process2";
+    }
+   //
 }

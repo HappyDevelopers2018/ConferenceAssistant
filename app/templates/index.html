@@ -31,16 +31,16 @@
      function Login() {
          console.log($('#passwords').val())
          $.ajax({
-             type:'POST',
-             url:'/login',
-             contenType:'application/json; charset=utf-8',
-             data:{"name":$('#name').val(),"password":$('#passwords').val()},
+             type: 'POST',
+             url: '/login',
+             contenType: 'application/json; charset=utf-8',
+             data: {"name": $('#name').val(), "password": $('#passwords').val()},
 
              dataType: "json",
-             success:function(data){
+             success: function (data) {
                  console.log(data);
              },
-             error:function(){
+             error: function () {
              }
          })
 
@@ -52,20 +52,20 @@
          console.log($('#Email').val());
          console.log($("input[name='identity'][checked]").val());
          console.log($('#Password1').val());
-         var testdata = {'userName':"1",'realName':"1","institude":"2",'email':"2@1.com",'identity':1,'password':"1"}
+         //var testdata = {'userName':"1",'realName':"1","institude":"2",'email':"2@1.com",'identity':1,'password':"1"}
 
          $.ajax({
              type:'POST',
              url:'/register',
              contenType:'application/json; charset=utf-8',
-             data:testdata,
-             /*
+             //data:testdata,
+
              data:{"userName":$('#userName').val(),
                  "realName":$('#realName').val(),
                  "institude":$('#institude').val(),
                  "email":$('#Email').val(),
                  "identity":parseInt($("input[name='identity'][checked]").val()),
-                 "password":$('#Password1').val()},*/
+                 "password":$('#Password1').val()},
              dataType: "json",
              success:function(){
                  alert("发送成功");
@@ -128,19 +128,24 @@
 	<div class="pop-up">
 		<div id="small-dialog" class="mfp-hide book-form">
 			<h3>用户注册</h3>
-			<form action="#" method="post" enctype='multipart/form-data'>
+			<form method="post" enctype='multipart/form-data' action="/register" >
 				<input type="text" id="userName" name="userName" placeholder="用户名" required="" class="form-control" style="width: 100%"/>
 				<input type="text" id="realName" name="realName" placeholder="姓名" required="" class="form-control" style="width: 100%"/>
 				<input type="text" id= "institude" name="institude" placeholder="所属机构" required="" class="form-control" style="width: 100%"/>
-				<input type="text" id="Email" name="Email" class="email" placeholder="邮箱" required="" class="form-control" style="width: 100%"/>
+				<input type="text" id="Email" name="Email" placeholder="邮箱" required="" class="form-control" style="width: 100%"/>
 				<input type="password" id="Password1" name="Password1" class="password" placeholder="密码" required="" class="form-control" style="width: 100%"/>
 				<input type="password" id="Password2"name="Password2" class="password" placeholder="确认密码" required="" class="form-control" style="width: 100%"/>
 				<input type="radio" id="identity1" value="0" name="identity" />单位机构
 				<input type="radio" id="identity2" checked="checked" value="1" name="identity" />个人用户</span>
-				<br></br>
-				<a href="javascript:;" style="float:left" >选择机构或个人有效文件
-					<input type="file" name="file" class="file-loading"> </a>
-				<input type="submit" value="注册" onclick="register()">
+
+                <br></br>
+                 <input type="file" name="file">
+                <input type="submit" value="注册">
+                <!--<form enctype='multipart/form-data' method='POST'>
+                    <input type="file" name="file">
+                    <input type="submit" value="注册" onclick="register()">
+                </form>
+				<input type="submit" value="注册" onclick="register()">-->
 			</form>
 		</div>
 

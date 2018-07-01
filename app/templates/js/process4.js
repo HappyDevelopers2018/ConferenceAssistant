@@ -13,7 +13,7 @@ function nextstep(){
 
     var data={
 
-        'creatorID': 1,
+        'creatorID': 5000,
         'conferenceName':sessionStorage.conferenceName,
         'shortname':sessionStorage.shortname,
         'startTime':sessionStorage.startTime,
@@ -40,25 +40,33 @@ function nextstep(){
         'authorName':sessionStorage.authorName,
         'authorPrice':Number(sessionStorage.authorPrice),
         'authorNumber':Number(sessionStorage.authorNumber),
-        'p3_xiangqing1':sessionStorage.p3_xiangqing1,
+        'authorAbstract':sessionStorage.p3_xiangqing1,
 
 
         'generalName':sessionStorage.generalName,
         'generalPrice':Number(sessionStorage.generalPrice),
         'generalNumber':Number(sessionStorage.generalNumber),
-        'p3_xiangqing2':sessionStorage.p3_xiangqing2,
+        'generalAbstract':sessionStorage.p3_xiangqing2,
     }
-    $.ajax({
-        type: "POST",
-        url: "/registConference",
-        data: data,
-        dataType: "json",
-        contentType: 'application/json; charset=UTF-8',
-        success: function(data){
-           // window.location.href="process1";
-            console.log(123);
-        }
-    });
+    if($("#checker").is(':checked'))
+    {
+        $.ajax({
+            type: "POST",
+            url: "/registConference",
+            data: data,
+            dataType: "json",
+            contentType: 'application/json; charset=UTF-8',
+            success: function(data){
+                // window.location.href="process1";
+                console.log(123);
+            }
+        });
+    }
+    else
+    {
+        alert("请阅读网站的服务条款");
+    }
+
 
 }
 
