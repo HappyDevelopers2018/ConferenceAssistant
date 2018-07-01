@@ -1,0 +1,217 @@
+</html><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>流程</title>
+
+    <script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link href="summernote-master/dist/summernote.css" rel="stylesheet">
+    <script src="summernote-master/dist/summernote.js"></script>
+    <script src="summernote-master/lang/summernote-zh-CN.js"></script>
+    <script src="js/process3.js"></script>
+
+    <style>
+        ul{
+            margin: 0;
+            padding: 0;
+        }
+        li{
+            margin: 0;
+            padding: 0;
+        }
+        #myTab li{
+            width:25%;
+            float:left;
+            height:40px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        #myTab li img{
+            float:left;
+            height: 40px;
+        }
+        #myTab li a{
+            color:white;
+            text-align: center;
+            position: relative;
+            display: block;
+            padding: 10px 15px;
+        }
+        .blue{
+            background:#2b579a;
+        }
+        .gray{
+            background: #dfdfdf;
+        }
+        .tabPaneUl{
+            width: 700px;
+            margin: 0 auto;
+            list-style: none;
+        }
+        .tabPaneUl li{
+            height: 40px;
+            line-height: 40px;
+        }
+        .tab-pane{
+            margin-top: 50px;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function(){
+
+        });
+        //dom操作
+        var domFun={
+
+        };
+
+        // //事件操作
+        // var eventFun={
+        //     setStep:function(index){
+        //         for(var i=2;i<=index;i++){
+        //             $("#step"+i+"Li").addClass("blue").removeClass("gray");
+        //             $("#step"+i+"Img").attr("src","images/blue_blue.png");
+        //         }
+        //         for(var i=index+1;i<=4;i++){
+        //             $("#step"+i+"Li").addClass("gray").removeClass("blue");
+        //             $("#step"+i+"Img").attr("src","images/gray_gray.png");
+        //         }
+        //         $("#step"+(index+1)+"Img").attr("src","images/blue_gray.png");
+        //     }
+        // };
+    </script>
+</head>
+
+<body>
+<div id="page-inner" style="margin-left: 10%;margin-right: 10%">
+    <div class="row" style="padding:10px;background: #bebebe">
+        <div class="col-md-12">
+            <div class="input-group" style="width: 60%; font-size: 20px;font-weight: bolder;">
+                创建流程
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top:30px">
+        <ul id="myTab" role="tablist">
+            <li id="step1Li" class="blue">
+                <a role="tab" data-toggle="tab" style="text-decoration: none;">
+                    1.基本信息
+                </a>
+            </li>
+
+            <li id="step2Li"  class="blue">
+                <img id="step2Img" src="images/blue_blue.png"/>
+                <a role="tab" data-toggle="tab" style="text-decoration: none;">
+                    2.会议征稿设置
+                </a>
+            </li>
+            <li id="step3Li"  class="active blue">
+                <img id="step3Img" src="images/blue_blue.png"/>
+                <a role="tab" data-toggle="tab" style="text-decoration: none;">
+                    3.注册费
+                </a>
+            </li>
+            <li id="step4Li"  class="gray">
+                <img id="step4Img" src="images/blue_gray.png"/>
+                <a role="tab" data-toggle="tab" style="text-decoration: none;">
+                    4.创建完成
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div style="margin-top: 5%;margin-left: 10%;margin-right: 10%;border-style:solid; border-width:2px; border-color:#d1d1d1;">
+    <header >
+            <div class="tm-main-title" style="color: #2b579a;margin-top: 2%;  margin-left: 5%;border-bottom: 1px dashed #d1d1d1;line-height: 45px;font-size: 20px;color: #6c6c6c;">作者参会门票</div>
+        </header>
+        <div style="margin-left: 15%;margin-right: 15%; margin-bottom: 3%">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label for="authorName" class="col-sm-2 control-label"><span class="star">*</span>注册费名称</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="authorName" placeholder="请输入会议向作者所发行票的名称">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="authorPrice" class="col-sm-2 control-label"><span class="star">*</span>票价</label>
+                    <div class="col-sm-3">
+                        <input type="number" class="form-control" id="authorPrice" placeholder="￥">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="authorNumber" class="col-sm-2 control-label"><span class="star">*</span>票数</label>
+                    <div class="col-sm-3">
+                        <input type="number" class="form-control" id="authorNumber" placeholder="作者参会的票数">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="summernote" class="col-sm-2 control-label"><span class="star">*</span>注册费说明</label>
+                    <div class="col-sm-10">
+                        <div id="summernote"></div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+</div>
+
+
+
+
+<div style="margin-top: 5%;margin-left: 10%;margin-right: 10%;border-style:solid; border-width:2px; border-color:#d1d1d1;">
+    <header >
+        <div class="tm-main-title" style="color: #2b579a;margin-top: 2%;  margin-left: 5%;border-bottom: 1px dashed #d1d1d1;line-height: 45px;font-size: 20px;color: #6c6c6c;">普通参会门票</div>
+    </header>
+    <div style="margin-left: 15%;margin-right: 15%; margin-bottom: 3%">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label for="generalName" class="col-sm-2 control-label"><span class="star">*</span>注册费名称</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="generalName" placeholder="请输入会议向普通参会人员所发行票的名称">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="generalPrice" class="col-sm-2 control-label"><span class="star">*</span>票价</label>
+                <div class="col-sm-3">
+                    <input type="number" class="form-control" id="generalPrice" placeholder="￥">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="generalNumber" class="col-sm-2 control-label"><span class="star">*</span>票数</label>
+                <div class="col-sm-3">
+                    <input type="number" class="form-control" id="generalNumber" placeholder="普通参会人员参会的票数">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="summernote2" class="col-sm-2 control-label"><span class="star">*</span>注册费说明</label>
+                <div class="col-sm-10">
+                    <div id="summernote2"></div>
+                </div>
+            </div>
+            <div class="form-group" >
+                <div class="col-sm-offset-2 col-sm-1"style="margin-top: 3%">
+                    <button type="button" class="btn btn-info" style="background-color: #2b579a" onclick="laststep()">上一步</button>
+                </div>
+                <div class=" col-sm-2"style="margin-top: 3%">
+                    <button type="button" class="btn btn-info" style="background-color: #2b579a" onclick="nextstep()">下一步</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+</body>
+</html>
