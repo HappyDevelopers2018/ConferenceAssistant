@@ -19,6 +19,11 @@ def hello_world():
 	#return render_template('index.html');
       return send_file('./templates/index.html')
 
+
+@app.route('/index_backup',methods = ['GET','POST'])
+def backup():
+        return send_file('./templates/index_backup.html')
+
 @app.route('/test', methods = ['GET', 'POST'])
 def test():
 	path_file_name = '/home/happy/txt/action_'+str(0)+'.txt'

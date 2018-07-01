@@ -40,7 +40,7 @@ def insertDB(obj,db):
       l=len(obj)
       for each in obj:
             l-=1
-            queryStr+=obj[each]
+            queryStr+='"'+obj[each]+'"'
             if l>0:
                   queryStr+=','
       queryStr+=')'
@@ -75,6 +75,8 @@ def register():
                   return jsonify({"result":0})
             else:
                   return jsonify({"result":1})
+            finally:
+                  pass
 
 @zc.route('/registConference',methods=['POST'])
 def registConference():
@@ -82,7 +84,7 @@ def registConference():
             data = getParam((request.get_data()).decode())
             print(data)
             try:
-                  engine.execute(insertDB(data,'conference'))
+                  result=engine.execute(insertDB(data,'conference'))
                 #   engine.execute(
                 # "INSERT INTO conference(creatorID,conferenceName,shortname,startTime,endTime,\
                 # city,location,ownerOrganization,supporter,organizer,site,abstract,\
@@ -113,7 +115,8 @@ def registConference():
                   return jsonify({"result":0})
             else:
                   return jsonify({"result":1})
-
+            finally:
+                  pass
 # var data={'name':'1', 'realName':'11','organization':'1', 'email':'11','password':'1','identity':1,'filePath':'1'}
 # $.ajax({
 #       type: "POST",
@@ -125,3 +128,6 @@ def registConference():
 #                          console.log(data)
 #                      }
 #                  });
+
+
+
