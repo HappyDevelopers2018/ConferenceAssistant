@@ -1,7 +1,11 @@
 
 
 function onload(){
-    var id=25;
+
+    var thisURL = document.URL;
+    var getval =thisURL.split('?')[1];
+    var id= getval.split("=")[1];
+    //var id=25;
     $.ajax({
         type:"GET",
         url:"/returnConference/"+id,

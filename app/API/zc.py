@@ -1,13 +1,13 @@
 #-*- coding: utf-8 -*-
 
 from sqlalchemy import create_engine
-from flask  import Flask,request,session,g,redirect,url_for,Blueprint,jsonify
+from flask  import Flask,request,session,g,redirect,url_for,Blueprint,jsonify,send_file,render_template
 import os
 from werkzeug.utils import secure_filename
 import json
-
+import urllib.parse
 # 连接数据库的模块：//用户名:密码@ip:端口/数据库
-engine = create_engine("mysql+pymysql://root:nEXCruN1V5s1@localhost:3306/happy?charset=utf8")
+engine = create_engine("mysql+pymysql://root:123@localhost:3306/happy?charset=utf8")
 
 zc = Blueprint('zc', __name__)
 
@@ -44,7 +44,7 @@ def insertDB(obj,db):
   l=len(obj)
   for each in obj:
     l-=1
-    queryStr+='"'+obj[each]+'"'
+    queryStr+='"'+urllib.parse.unquote(obj[each])+'"'
     if l>0:
       queryStr+=','
   queryStr+=')'
@@ -62,29 +62,35 @@ def insertDB(obj,db):
 #     return json.dumps(retArr,ensure_ascii=False)
 #     # return jsonify({"result":len(ret)})
 
-@zc.route('/login',methods=['POST'])
+@zc.route('/loginAPI',methods=['POST'])
 def login():
   if request.method == 'POST':
     data = getParam((request.get_data()).decode('UTF-8'))
     print(request.get_data())
-    result = engine.execute('select id,identity from user where name="'+data['name']+'" and password="'+data['password']+'"')
+    tmp=urllib.parse.unquote(data['name'])
+    print('========= tmpdata : ',tmp,'=============')
+    result = engine.execute('select id,identity from user where name="'+tmp+'" and password="'+data['password']+'"')
     ret = result.fetchall()
     # return json.dumps(retArr,ensure_ascii=False)
     print(ret)
     if len(ret)==0:
-      return jsonify({"result":ret})
+      print('null')
+      return jsonify({"result":0})
     return jsonify({"result":ret[0][1],"id":ret[0][0]})
 
-@zc.route('/register',methods=['POST'])
+@zc.route('/registerAPI',methods=['POST'])
 def register():
   if request.method == 'POST':
     file = request.files['file']
-    print('filename='+file.filename)
+    filename=file.filename
+    filePathName,extension=os.path.splitext(filename)
+    userName=request.form.get('userName')
+
+    filename=userName+extension
     if (file == None):
       uploadPath = 'NULL'
     else:
-      basepath = os.path.dirname(__file__)
-      uploadPath = os.path.join("/home/happy/identifyImage", secure_filename(file.filename))
+      uploadPath = os.path.join("/home/happy/identifyImage", filename)
       file.save(uploadPath)
     userName=request.form.get('userName')
     realName=(request.form.get('realName'))
@@ -99,9 +105,9 @@ def register():
       print('register:'+query)
       engine.execute(query)
     except:
-      return jsonify({"result":0})
+      return send_file('./templates/registerFail.html')
     else:
-      return jsonify({"result":1})
+      return send_file('./templates/index.html')
     finally:
       pass
 

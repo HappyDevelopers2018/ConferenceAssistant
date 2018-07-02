@@ -18,21 +18,40 @@
 	    t.setTime(0);
 	    document.cookie="name=;expires="+t.toGMTString()+";path=/";
 	    document.cookie="id=;expires="+t.toGMTString()+";path=/";
-	    $('#login').html("登录")
-	    window.location.href="index.html";
+        name="";
+	    $('#login').html("登录");
+	    window.location.href="index";
     }
     function login() {
-        name=getUserNameByCookie()
+        name=getUserNameByCookie();
+        console.log(name)
         if(!name){
-            $('#login').html("登录")
+            window.location.href="login";
+
         }
         else{
-            $('#login').html(name)
+            $('#login').html(name);
+        }
+    }
+    function getName() {
+        name=getUserNameByCookie();
+        console.log(name);
+        if(name){
+            $('#login').html(name);
+        }
+    }
+    function submitConf() {
+        identity=getUserIdentityByCookie();
+        if(identity!=1){
+            window.location.href='process1'
+        }
+        else{
+            alert('您没有权限创建会议，请注册为机构用户')
         }
     }
 
 </script>
-<body onload="login()">
+<body onload="getName()">
 <nav class="navbar navbar-expand-lg " style="background-color: #2b579a">
     <div class="container">
         <div class="navbar-translate">
@@ -61,13 +80,13 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/process1">发布会议</a>
+                    <a class="nav-link" id="conference" onclick="submitConf()">发布会议</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#pablo">我的</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" name="login">登录</a>
+                    <a class="nav-link" id="login" onclick="login()" style="text-transform: none">登录</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link " onclick="logout()">登出</a>
@@ -87,7 +106,7 @@
             </div>
         </div>
         <div class="row" >
-            <button class="btn-lg btn-primary" onclick=window.location.href="/process1"
+            <button class="btn-lg btn-primary" onclick=submitConf()
                     style="text-align: center; margin: 0 auto; background-color: #2b579a;font-size: 20px">
                 创建会议</button>
         </div>

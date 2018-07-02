@@ -12,6 +12,8 @@
     <script src="summernote-master/dist/summernote.js"></script>
     <script src="summernote-master/lang/summernote-zh-CN.js"></script>
     <script src="js/process2.js"></script>
+    <script src="assets/js/jquery.cookie.js" type="text/javascript"></script>
+    <script src="assets/js/cookie.js" type="text/javascript"></script>
 
     <style>
         ul{
@@ -65,34 +67,50 @@
         $(document).ready(function(){
 
         });
-        //dom操作
-        var domFun={
+        function onload() {
+            name=getUserNameByCookie();
+            if(!name){
+                window.location.href="login";
 
-        };
+            }
+            else{
+                $('#login').html(name);
+            }
 
-        // //事件操作
-        // var eventFun={
-        //     setStep:function(index){
-        //         for(var i=2;i<=index;i++){
-        //             $("#step"+i+"Li").addClass("blue").removeClass("gray");
-        //             $("#step"+i+"Img").attr("src","images/blue_blue.png");
-        //         }
-        //         for(var i=index+1;i<=4;i++){
-        //             $("#step"+i+"Li").addClass("gray").removeClass("blue");
-        //             $("#step"+i+"Img").attr("src","images/gray_gray.png");
-        //         }
-        //         $("#step"+(index+1)+"Img").attr("src","images/blue_gray.png");
-        //     }
-        // };
+        }
     </script>
 </head>
 
-<body>
+<body onload="onload()">
+<nav class="navbar navbar-default" style="background-color: #2b579a">
+    <div class="container-fluid" style="color:white">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header" style="margin-left:15%">
+            <a class="navbar-brand" href="/index"><font color="white">CONFERENCE</font></a>
+        </div>
+
+
+        <ul class="nav navbar-nav navbar-right" style="margin-right:15%">
+            <li><a href="/process1"><font color="white">发布会议</font></a></li>
+            <li><a href="/primary_info"><font color="white">个人中心</font></a></li>
+            <li><a href="/primary_info"><font color="white" id="login">登录</font></a></li>
+            <li><a href=”javascript:logout()”><font color="white">登出</font></a></li>
+        </ul>
+        <form class="navbar-form navbar-right">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="搜索会议">
+            </div>
+            <button type="submit" class="btn btn-default">搜索</button>
+        </form>
+    </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
 <div id="page-inner" style="margin-left: 10%;margin-right: 10%">
     <div class="row" style="padding:10px;background: #bebebe">
         <div class="col-md-12">
             <div class="input-group" style="width: 60%; font-size: 20px;font-weight: bolder;">
-                创建流程
+                创建会议
             </div>
         </div>
     </div>

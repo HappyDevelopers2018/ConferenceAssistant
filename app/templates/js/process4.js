@@ -57,7 +57,7 @@ function nextstep(){
             dataType: "json",
             contentType: 'application/json; charset=UTF-8',
             success: function(data){
-                // window.location.href="process1";
+                window.location.href="index";
                 console.log(123);
             }
         });

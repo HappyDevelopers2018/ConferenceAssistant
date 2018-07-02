@@ -3,7 +3,7 @@ from flask  import Flask,request,session,g,redirect,url_for,Blueprint,jsonify
 import json
 # pymysql://root:123456@192.168.168.231:3306/test
 # 连接数据库的模块：//用户名:密码@ip:端口/数据库
-engine = create_engine("mysql+pymysql://root:nEXCruN1V5s1@localhost:3306/happy?charset=utf8")
+engine = create_engine("mysql+pymysql://root:123@localhost:3306/happy?charset=utf8")
 
 holy = Blueprint('holy', __name__)
 
