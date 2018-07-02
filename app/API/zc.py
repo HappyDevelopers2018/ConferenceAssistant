@@ -79,6 +79,7 @@ def login():
 def register():
   if request.method == 'POST':
     file = request.files['file']
+    print('filename='+file.filename)
     if (file == None):
       uploadPath = 'NULL'
     else:
@@ -95,7 +96,7 @@ def register():
     try:
       query='INSERT INTO user(name,realName,organization,email,password,identity,filePath) VALUES \
       ("'+userName+'","'+realName+'","'+institude+'", "'+Email+'","'+Password1+'", "'+identity+'","'+uploadPath+'")'
-      print(query)
+      print('register:'+query)
       engine.execute(query)
     except:
       return jsonify({"result":0})

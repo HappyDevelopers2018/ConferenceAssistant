@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/now-ui-kit.css">
+    <!--<link rel="stylesheet" type="text/css" href="assets/css/home.css">-->
+    {% if title %}
+    <title>{{ title }} </title>
+    {% else %}
+    <title>学术会议base</title>
+    {% endif %}
+</head>
+<body>
+<nav class="navbar navbar-expand-lg " style="background-color: #2b579a">
+    <div class="container">
+        <div class="navbar-translate">
+            <a class="navbar-brand" href="#pablo">
+                Conference
+            </a>
+        </div>
+
+
+
+
+        <div class="collapse navbar-collapse justify-content-end" id="navigation">
+            <form class="nav-form"  >
+                <div style="position: relative;">
+            <span >
+                <input type="text" class="search form-control-nav" placeholder="搜索会议">
+                <button type="submit" class="cha">搜索</button>
+            </span>
+                </div>
+            </form>
+
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#pablo">
+                        主页
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/process1">发布会议</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#pablo">我的</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="/login">登录</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+{% block content %}{% endblock %}
+</body>
+</html>
