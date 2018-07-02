@@ -16,12 +16,21 @@
             <a class="navbar-brand" href="#pablo">
                 Conference
             </a>
-
-
-
         </div>
 
+
+
+
         <div class="collapse navbar-collapse justify-content-end" id="navigation">
+            <form class="nav-form"  >
+                <div style="position: relative;">
+            <span >
+                <input type="text" class="search form-control-nav" placeholder="搜索会议">
+                <button type="submit" class="cha">搜索</button>
+            </span>
+                </div>
+            </form>
+
             <ul class="navbar-nav">
                 <li class="nav-item active">
                     <a class="nav-link" href="#pablo">
@@ -29,7 +38,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#pablo">发布会议</a>
+                    <a class="nav-link" href="/process1">发布会议</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#pablo">我的</a>
@@ -46,18 +55,42 @@
 <div class="banner">
     <div class="clear"></div>
     <div class="container" >
-        <div class="row">
+        <div class="row" style="position: relative">
             <div class="col-xl-9 mx-auto">
-            <h1 class="mb-5" style="font-size: 3rem">学 术 会 议</h1>
+            <h1 class="mb-5" style="font-size: 3rem; color: #244683">学 术 会 议</h1>
             </div>
         </div>
         <div class="row" >
-            <button class="btn-lg btn-primary" style="text-align: center; margin: 0 auto; background-color: #2b579a">创建会议</button>
+            <button class="btn-lg btn-primary" onclick=window.location.href="/process1"
+                    style="text-align: center; margin: 0 auto; background-color: #2b579a;font-size: 20px">
+                创建会议</button>
         </div>
-    </div>
+
+
+
+        <div class="row" style="margin-top: 15px">
+            <div class="col-md-10 col-lg-8 col-xl-7 mx-auto input-box" style="padding-left: 0px;padding-right: 0px;">
+                <div class="form-row">
+                    <div class="col-12 col-md-10 mb-2 mb-md-0" style="padding-right: 0px;">
+                        <input id="inputbox" type="text" class="form_control_new search">
+                    </div>
+                    <div class="col-12 col-md-2">
+                        <button type="submit" id="btnsearch" class="btn-primary-new search-btn" style="margin:0;padding:-2px">
+                            搜索
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
 </div>
 
 </div>
+
+
+</div>
+
 </div>
 
 </body>

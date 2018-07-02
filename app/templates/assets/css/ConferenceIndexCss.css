@@ -1,0 +1,43 @@
+.content-main {
+    background-color: #f6f6f6;
+}
+
+.container-l {
+    position: relative;
+    height: 189px;
+}
+
+.nav-top-er {
+    height: 189px;
+    
+    background: #2B579a;
+    
+    background-image: url(\assets\img\nav_bg.png);
+    
+    background-position: center;
+}
+.nav-er-h1 {
+    margin: 40px 0 0px;
+    font-size: 30px;
+    color:black;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.nav-er-h1>a {
+    color: #ffffff;
+}
+
+.nav-er-d-l {
+    margin-top: 15px;
+}
+
+.container-l .nav-er-d-l {
+    position: absolute;
+    width: 96%;
+    bottom: 10px;
+}
+.nav-er-d {
+    color: #fff;
+    font-size: 12px;
+}

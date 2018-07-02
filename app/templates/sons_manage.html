@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>单位用户信息</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script src="js/enterpriseInfo.js"></script>
+</head>
+
+<body>
+<div>
+    <div class="list-group" style="width:10%;float:left;margin-left:5%">
+        <p href="#" class="list-group-item active">
+            企业账户信息
+        </p>
+  		<button class="list-group-item" onClick="primary_info()">企业基本信息</button>
+  		<button class="list-group-item" onclick="conference_manage()">会议管理</button>
+  		<button class="list-group-item" onclick="money()">账户余额</button>
+  		<button class="list-group-item" onclick="sons_manage()">子账号管理</button>
+    </div>
+	<div class="showblock" id="showblock" style="margin-left:5%;width:75%;height:auto;float:left;border: 1px solid black;padding:2.5%">
+		<div class="col-md-9">
+        <div style="margin-top: 5%">
+            <table class="table table-hover table-responsive text-center">
+                <tr>
+                    <td class="col-md-3">用户名</td>
+                    <td class="col-md-3">密码</td>
+                    <td class="col-md-2">创建时间</td>
+                    <td class="col-md-2">创建人</td>
+                    <td class="col-md-2"></td>
+                </tr>
+                <tr>
+                    <td>北航软件学院</td>
+                    <td>123456</td>
+                    <td>2018年6月29日</td>
+                    <td>北航</td>
+                    <td><button type="button" class="btn btn-info">删除</button></td>
+                </tr>
+                <tr>
+                    <td>北航计算机学院</td>
+                    <td>123456</td>
+                    <td>2018年6月29日</td>
+                    <td>北航</td>
+                    <td><button type="button" class="btn btn-info">删除</button></td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+	</div>
+
+</div>
+</body>
+</html>

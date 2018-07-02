@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>单位用户信息</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script src="js/enterpriseInfo.js"></script>
+</head>
+
+<body onLoad="onload()">
+<div>
+	<div class="list-group" style="width:10%;float:left;margin-left:5%">
+        <p href="#" class="list-group-item active">
+            企业账户信息
+        </p>
+  		<button class="list-group-item" onClick="primary_info()">企业基本信息</button>
+  		<button class="list-group-item" onclick="conference_manage()">会议管理</button>
+  		<button class="list-group-item" onclick="sons_manage()">子账号管理</button>
+    </div>
+	<div class="showblock" id="showblock" style="margin-left:5%;width:75%;height:auto;float:left;border: 1px solid black;padding:2.5%">
+        <div style="margin-top: 5%;block:inline">
+            
+            <div class="form-group">
+               <div class="col-sm-1">
+                	<b>机构名称</b>
+				</div>
+                <div class="col-sm-11">
+                    <p id='name'>无</p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-1">
+                	<b>所属机构</b>
+				</div>
+                <div class="col-sm-11">
+                    <p id='organization'>无</p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-1">
+                	<b style="vertical-align:middle">Email</b>
+				</div>
+                <div class="col-sm-11">
+                    <input type="email" class="form-control" id="inputEmail3" placeholder="123456789@buaa.edu.cn">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-1">
+                	<b style="vertical-align:middle">TEL</b>
+				</div>
+                <div class="col-sm-11">
+                    <input type="email" class="form-control" id="inputTEL" placeholder="+86 131456789">
+                </div>
+            </div>
+            <div class="form-group" >
+                <div class="col-sm-offset-2 col-sm-10"style="margin-top: 3%">
+                    <button onClick="submitchange()" class="btn btn-default">提交修改</button>
+                </div>
+            </div>
+
+        </div>
+
+	</div>
+ 
+</div>
+</body>
+</html>

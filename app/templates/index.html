@@ -28,23 +28,54 @@
 		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 
  <script>
+     function getIdentity(name) {
+        console.log(name)
+         $.ajax({
+             type:'GET',
+             url:'/userInfo/'+name,
+             contenType:'application/json; charset=utf-8',
+             dataType:'json',
+             success:function (data) {
+                console.log(data)
+                 if(data){
+                     if(data[0].identity==1){
+                        console.log('before')
+                         window.location.href="primaryInfo"
+                         console.log('after')
+                     }
+                     else{
+                         window.location.href="index"
+                     }
+                 }
+             },
+             error: function () {
+                console.log('error')
+             }
+         })
+     }
      function Login() {
-         console.log($('#passwords').val())
          $.ajax({
              type: 'POST',
              url: '/login',
              contenType: 'application/json; charset=utf-8',
-             data: {"name": $('#name').val(), "password": $('#passwords').val()},
-
+             data: {"name": $('#name').val(), "password": $('#password').val()},
              dataType: "json",
              success: function (data) {
-                 console.log(data);
+                console.log(data.result)
+                if(data.result=='1'){
+                    window.location.href="/index"
+                }else if(data.result=='2'){
+                    window.location.href="index"
+                }else{
+                    alert('用户名或密码错误')
+                }
              },
              error: function () {
              }
          })
 
      }
+
      function register() {
          console.log($('#userName').val());
          console.log($('#realName').val());
@@ -60,12 +91,12 @@
              contenType:'application/json; charset=utf-8',
              //data:testdata,
 
-             data:{"userName":$('#userName').val(),
+             data:JSON.stringify({"userName":$('#userName').val(),
                  "realName":$('#realName').val(),
                  "institude":$('#institude').val(),
                  "email":$('#Email').val(),
                  "identity":parseInt($("input[name='identity'][checked]").val()),
-                 "password":$('#Password1').val()},
+                 "password":$('#Password1').val()}),
              dataType: "json",
              success:function(){
                  alert("发送成功");
@@ -100,9 +131,8 @@
 	<h1>学术会议平台</h1>
 	<div class="bodystyle" >
 		<div class="singnin-new" >
-			<form action="#" method="post">
 				<input type="text" name="name" id="name" class="form-control name" placeholder="Username" required style="width: 100%">
-				<input type="password" name="passwords" id="passwords" class="form-control password" placeholder="Password" required style="width: 100%">
+				<input type="password" name="password" id="password" class="form-control password" placeholder="Password" required style="width: 100%">
 				<ul>
 					<li>
 						<input type="checkbox" id="brand1" value="">
@@ -111,7 +141,6 @@
 
 				<div></div>
 				<input type="submit" value="登录" onclick="Login()">
-			</form>
 			<a class="book popup-with-zoom-anim button-isi zoomIn animated" data-wow-delay=".5s" href="#small-dialog"
 			style="width: 100%">
 				注册</a>
@@ -134,8 +163,8 @@
 				<input type="text" id= "institude" name="institude" placeholder="所属机构" required="" class="form-control" style="width: 100%"/>
 				<input type="text" id="Email" name="Email" placeholder="邮箱" required="" class="form-control" style="width: 100%"/>
 				<input type="password" id="Password1" name="Password1" class="password" placeholder="密码" required="" class="form-control" style="width: 100%"/>
-				<input type="password" id="Password2"name="Password2" class="password" placeholder="确认密码" required="" class="form-control" style="width: 100%"/>
-				<input type="radio" id="identity1" value="0" name="identity" />单位机构
+				<input type="password" id="Password2" name="Password2" class="password" placeholder="确认密码" required="" class="form-control" style="width: 100%"/>
+				<input type="radio" id="identity1" value="2" name="identity" />单位机构
 				<input type="radio" id="identity2" checked="checked" value="1" name="identity" />个人用户</span>
 
                 <br></br>

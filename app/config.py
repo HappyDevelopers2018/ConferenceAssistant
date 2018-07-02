@@ -1,5 +1,5 @@
-# coding: utf-8
-# coding: utf-8
+# coding=utf-8
+
 
 
 _DBUSER = "root" # 数据库用户名

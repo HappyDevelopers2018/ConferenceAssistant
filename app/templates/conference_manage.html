@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>单位用户信息</title>
+<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="js/enterpriseInfo.js"></script>
+</head>
+
+<body onLoad="onload()">
+<div>
+	<div class="list-group" style="width:10%;float:left;margin-left:5%">
+  		<p href="#" class="list-group-item active">
+    		企业账户信息
+ 		 </p>
+  		<button class="list-group-item" onClick="primary_info()">企业基本信息</button>
+  		<button class="list-group-item" onclick="conference_manage()">会议管理</button>
+  		<button class="list-group-item" onclick="sons_manage()">子账号管理</button>
+	</div>
+	<div class="showblock" id="showblock" style="margin-left:5%;width:75%;height:auto;float:left;border: 1px solid black;padding:2.5%">
+		<h3>&nbsp我创建的会议</h3>
+		<br>
+		<div class="mouseovera" style="float:left; width:95%;height:200px;border:1px solid grey;">
+			<div style="width:1%;height:99%;float:left;margin: 0.1%">
+				
+			</div>
+			<div style="width:90%;height:100%;float:left;margin:2%">
+			<p>会议名称:&nbsp<b>2018上海国际金融科技与金融装备创新展览会</b> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp会议时间：&nbsp 2018.6 <button style="float:right" type="button;" class="btn btn-default" onclick="manage_conference()">管理会议</button> </p>
+			<br>
+			<p>会议简介：将于2018第十二届上海金洽会同时同地举办的2018上海国际金融科技与金融装备创新展览会，以“新时代、新技术、新金融”为主题，展示金融行业与高新技术企业深入实施创新驱动发展战略，运用云计算、大数据、移动互联网、区块链等现代信息技术，开展金融技术、工具、服务、市场创新，推进金融科技成果转化及应用，提升金融服务实体经济水平，做好金融安全与风险防控的成果。上海金融科技创新展聚焦金融技术创新，将为金融行业与高新技术企业提供深度融合、交流合作、共同发展的平台。</p>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

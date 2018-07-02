@@ -1,5 +1,8 @@
+# coding=utf-8
 from flask import Flask
-from flask import render_template,send_file,url_for
+from flask import render_template,send_file,url_for,request
+from werkzeug.utils import secure_filename
+
 import os
 app = Flask(__name__,static_url_path='',
 static_folder=os.path.abspath('/home/happy/ConferenceAssistant/app/static'),template_folder=os.path.abspath('/home/happy/ConferenceAssistant/app/templates')
@@ -13,12 +16,11 @@ def register_blueprints(app):
     app.register_blueprint(holy)
 register_blueprints(app)
 
-@app.route('/', methods = ['GET', 'POST'])
 @app.route('/login',methods = ['GET','POST'])
 def hello_world():
 	#return render_template('index.html');
       return send_file('./templates/index.html')
-
+@app.route('/', methods = ['GET', 'POST'])
 @app.route('/index',methods = ['GET','POST'])
 def home():
     return send_file('./templates/home.html')
@@ -53,5 +55,17 @@ def process3():
 def process4():
       return send_file('./templates/process4.html')
 
+@app.route('/conference_manage',methods = ['GET','POST'])
+def process5():
+      return send_file('./templates/conference_manage.html')
+
+@app.route('/ConferenceIndex',methods = ['GET','POST'])
+def process6():
+      return send_file('./templates/ConferenceIndex.html')
+
+@app.route('/primary_info',methods = ['GET','POST'])
+def process7():
+      return send_file('./templates/primary_info.html')
 if __name__ == '__main__':
+    app.config['JSON_AS_ASCII'] = False
     app.run()
