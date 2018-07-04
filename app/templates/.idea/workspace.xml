@@ -143,7 +143,7 @@
       <path value="$PROJECT_DIR$/summernote-master/package.json" />
     </packageJsonPaths>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-10" />
     <option name="y" value="-10" />
     <option name="width" value="1940" />
@@ -223,16 +223,15 @@
       <workItem from="1530362308895" duration="871000" />
       <workItem from="1530363203175" duration="535000" />
       <workItem from="1530363768546" duration="881000" />
-      <workItem from="1530408072272" duration="8224000" />
+      <workItem from="1530408072272" duration="8817000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10511000" />
+    <option name="totallyTimeSpent" value="11104000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="840" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TypeScript" order="7" />
       <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.25" />

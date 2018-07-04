@@ -1,14 +1,16 @@
 
 
 function onload(){
-    var id=25;
+
+    var thisURL = document.URL;
+    var getval =thisURL.split('?')[1];
+    var id= getval.split("=")[1];
+    //var id=25;
     $.ajax({
         type:"GET",
         url:"/returnConference/"+id,
         dataType:"json",
         success:function(data){
-            alert("sucess");
-            console.log(data[0])
             //论文摘要生成
     // var data={"id": 23, "creatorID": 1, "conferenceName": "1", "shortname": "1", "startTime": "-1", "endTime": "-1", "location": "1", "ownerOrganization": "ownerOrganization", "supporter": "supporter", "organizer": "1", "site": "1", "abstract": "1", "ownerPeopleName": "ownerPeopleName", "ownerPeopleTel": "ownerPeopleTel", "ownerPeopleEmail": "ownerPeopleEmail", "contributionStartTime": "1", "contributionEndTime": "1-1-1", "contributionTheme": "-1", "contributionAbstract": "1", "authorName": "1", "authorPrice": "1", "authorNumber": 1, "authorAbstract": 1, "generalName": "1", "generalPrice": "1", "generalNumber": 1, "generalAbstract": 1}
             var a=data.abstract;

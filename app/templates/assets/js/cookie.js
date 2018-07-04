@@ -37,11 +37,3 @@ function getUserIdentityByCookie() {
 	}
 	return identity;
 }
-function logout(){
-	var t=new Date();
-	t.setTime(0);
-	document.cookie="name=;expires="+t.toGMTString()+";path=/";
-	document.cookie="id=;expires="+t.toGMTString()+";path=/";
-	document.cookie="identity=;expires="+t.toGMTString()+";path=/";
-	window.location.href="/index";
-}

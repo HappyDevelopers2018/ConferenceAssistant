@@ -10,10 +10,11 @@ function nextstep(){
     // var contributionStartTimedate=new Date(a[0],a[1],a[2]);
     // a=sessionStorage.contributionEndTime.split("-");
     // var contributionEndTimedate=new Date(a[0],a[1],a[2]);
+    var name=getUserIdByCookie();
 
     var data={
 
-        'creatorID': 5000,
+        'creatorID': name,
         'conferenceName':sessionStorage.conferenceName,
         'shortname':sessionStorage.shortname,
         'startTime':sessionStorage.startTime,

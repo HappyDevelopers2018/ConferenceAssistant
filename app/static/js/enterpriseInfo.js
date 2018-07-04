@@ -1,3 +1,11 @@
+function GetChinese(strValue) {  
+    if(strValue!= null && strValue!= ""){  
+        var reg = /[\u4e00-\u9fa5]/g;   
+        return strValue.match(reg).join("");  
+    }  
+    else  
+        return "";  
+}  
 function primary_info(){
 	window.location.href="/primary_info";
 }
@@ -36,7 +44,7 @@ function onload(){
 				var l=data.length;
 			for(var i=0;i<l;i++)
 				{
-					var a=$("<div onclick='toxiangqing("+data[i].id+")'class='mouseovera' style='float:left; width:95%;height:200px;border:1px solid grey;'><div style='width:1%;height:99%;float:left;margin: 0.1%'></div><div style='width:90%;height:100%;float:left;margin:2%'><p>会议名称:&nbsp<b>"+data[i].conferenceName+"</b>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp会议时间：&nbsp "+data[i].startTime+" <button style='float:right' type='button;' class='btn btn-default' onclick='manage_conference()'>管理会议</button> </p><br><p>会议简介："+data[i].abstract+"</p></div></div>");
+					var a=$("<div onclick='toxiangqing("+data[i].id+")'class='mouseovera' style='overflow: hidden;float:left; width:95%;height:200px;border:1px solid grey;'><div style='width:1%;height:99%;float:left;margin: 0.1%'></div><div style='width:90%;height:100%;float:left;margin:2%'><p>会议名称:&nbsp<b>"+data[i].conferenceName+"</b>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp会议时间：&nbsp "+data[i].startTime+" <button style='float:right' type='button;' class='btn btn-default' onclick='manage_conference()'>管理会议</button> </p><br><p>会议简介："+GetChinese(data[i].abstract.toString())+"</p></div></div>");
 					a.appendTo("#showblock");
 				}
 			changecolor();
