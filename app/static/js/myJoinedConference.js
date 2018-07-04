@@ -22,7 +22,7 @@ function toxiangqing(e)
 	window.location.href="/ConferenceIndex?id="+e;
 }
 function primary_info(){
-	window.location.href=:"/primary_info_user"
+	window.location.href="/primary_info_user"
 }
 function conference_manage(){
 }
