@@ -38,3 +38,7 @@ function logout(){
 	document.cookie="identity=;expires="+t.toGMTString()+";path=/";
 	window.location.href="/index";
 }
+
+function update(){
+    window.location.href="primaryInfoUpdate";
+}

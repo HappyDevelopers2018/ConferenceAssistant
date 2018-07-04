@@ -2,6 +2,7 @@
 
 function onload(){
     var id=25;
+	console.log('test');
     $.ajax({
         type:"GET",
         url:"/returnConference/"+id,

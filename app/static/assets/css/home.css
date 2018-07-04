@@ -149,6 +149,7 @@ fieldset[disabled] .btn-primary.active {
     /*margin-left: auto;*/
     /*margin-right: auto;*/
     margin-bottom: 8px;
+    margin-top: 10px;
 }
 .info-detail{
     display: inline-block;

@@ -1,10 +1,9 @@
 
 
 function onload(){
-
     var thisURL = document.URL;
     var getval =thisURL.split('?')[1];
-    var id= getval.split("=")[1];
+	var id= getval.split("=")[1];
     //var id=25;
     $.ajax({
         type:"GET",
@@ -36,3 +35,42 @@ function onload(){
        }
    })
 }
+
+
+function getUserIdByCookie() {
+    var cookies=document.cookie.split(";");
+    var l=cookies.length;
+    for(var i=0;i<l;i++)
+    {
+        if($.trim(cookies[i].split("=")[0])=="id")
+        {
+            id=cookies[i].split("=")[1];
+            break;
+        }
+    }
+    return id;
+}
+
+function submitFavorite(){
+	let usrid=getUserIdByCookie();
+	let thisURL = document.URL;
+    let getval =thisURL.split('?')[1];
+    let confid= getval.split("=")[1];
+	console.log('usrid = '+usrid+' confid = '+confid);
+
+	$.ajax({
+		type: "get",
+      	url:"/addCollection/"+usrid+"/"+confid,
+		dataType: "json",
+      contentType: 'application/json; charset=UTF-8',
+      success: function(data){
+			console.log("success!")
+      		console.log(data)
+       }
+    });	
+
+
+
+
+}
+

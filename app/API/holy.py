@@ -1,5 +1,7 @@
+import os
+
 from sqlalchemy import create_engine
-from flask  import Flask,request,session,g,redirect,url_for,Blueprint,jsonify
+from flask  import Flask,request,session,g,redirect,url_for,Blueprint,jsonify,send_file, send_from_directory,make_response
 import json
 # pymysql://root:123456@192.168.168.231:3306/test
 # 连接数据库的模块：//用户名:密码@ip:端口/数据库
@@ -7,6 +9,22 @@ engine = create_engine("mysql+pymysql://root:123@localhost:3306/happy?charset=ut
 
 holy = Blueprint('holy', __name__)
 
+def rejectIdentity(id, db):
+    queryS = 'update '+db+' set identity = 4  where id= '+str(id)
+    print(queryS)
+    engine.execute(queryS)
+    jsonData = []
+    jsonData.append(1)
+    return jsonData
+
+
+def passIdentity(id, db):
+    queryS = 'update '+db+' set identity = 3  where id='+str(id)
+    print(queryS)
+    engine.execute(queryS)
+    jsonData = []
+    jsonData.append(1)
+    return jsonData
 
 def getUnregisterOrg(db):
     queryS = 'select * from '+db+' where identity=2'
@@ -306,3 +324,55 @@ def returnOrganization():
             else:
                   #return jsonify({"result":1})
                 return jsondatar
+
+@holy.route('/passIdentity/<id>',methods=['GET'])
+def passIdentiy(id):
+    if request.method == 'GET':
+            try:
+                  res=passIdentity(id,'user')
+                  jsondatar=json.dumps(res,ensure_ascii=False)
+                  print(jsondatar)
+                #   engine.execute(
+                # "INSERT INTO user(name,organization,email,password,identity,realName,filePath) \
+                # VALUES (%(name)s,%(realName)s,%(organization)s,%(email)s,%(password)s, %(identity)s,%(filePath)s,)",
+                # name=data['name'],realName=data['realName'],
+                # organization=data['organization'],email=data['email'],
+                # password=data['password'],identity=data['identity'],
+                # filePath=data['filePath']
+                # )
+            except:
+                return jsonify({"result":0})
+            else:
+                  #return jsonify({"result":1})
+                return jsondatar
+
+@holy.route('/rejectIdentity/<id>',methods=['GET'])
+def rejectIdentiy(id):
+    if request.method == 'GET':
+            try:
+                  res=rejectIdentity(id,'user')
+                  jsondatar=json.dumps(res,ensure_ascii=False)
+                  print(jsondatar)
+                #   engine.execute(
+                # "INSERT INTO user(name,organization,email,password,identity,realName,filePath) \
+                # VALUES (%(name)s,%(realName)s,%(organization)s,%(email)s,%(password)s, %(identity)s,%(filePath)s,)",
+                # name=data['name'],realName=data['realName'],
+                # organization=data['organization'],email=data['email'],
+                # password=data['password'],identity=data['identity'],
+                # filePath=data['filePath']
+                # )
+            except:
+                return jsonify({"result":0})
+            else:
+                  #return jsonify({"result":1})
+                return jsondatar
+@holy.route('/download/<filename>',methods=['GET'])
+def download(filename):
+    #pls = path.split('/')
+    #fname = pls[-1]
+    fname = filename
+    print(fname)
+    response = make_response(send_from_directory('/home/happy/identifyImage/',fname,as_attachment=True))
+    response.headers["Content-Disposition"] = "attachment; filename={}".format(fname)
+    return response
+    #return send_from_directory('/home/happy/identifyImage/',fname,as_attachment=True)

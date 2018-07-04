@@ -14,7 +14,8 @@
     <title>会议页面</title>
     <script type="text/javascript" src="assets/js/core/jquery.3.2.1.min.js"></script>
     <script type="text/javascript" src="assets/js/core/bootstrap.min.js"></script>
-    <script src="assets/js/ConferenceIndex.js"></script>
+    <script type="text/javascript" src="assets/js/cookie.js"></script>
+	<script src="assets/js/ConferenceIndex.js"></script>
     
 
 </head>
@@ -37,12 +38,12 @@
                         </span>
                         <span class="er-dst er-dstm" title="中国 ·  广东省  深圳市 ">
                             <i class="icon icon-rd icon-rd2"></i>
-                            <span class="conf-position">中国 · 北京 北京市 </span>
+                            <span class="conf-position">中国 · 北京 北京市海淀区 </span>
                         </span>
                     </p>
                     <div class="col-sm-12 col-md-4 nav-er-p2" id="conf-detail-btn-group">
                         <a href="#" id="conf-favorite-btn" class="conf-favorite-btn favorite-no">
-                            <i class="icon icon-vl icon-vl2"></i>收藏</a>
+                            <i class="icon icon-vl icon-vl2" onclick="submitFavorite()"></i>收藏</a>
                     </div>
                 </div>
             </div>

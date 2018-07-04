@@ -12,6 +12,7 @@ engine = create_engine("mysql+pymysql://root:123@localhost:3306/happy?charset=ut
 zc = Blueprint('zc', __name__)
 def getSearchResult(str,db):
   queryStr='select * from '+ db+' where conferenceName= '
+  print(queryStr)
   queryStr+=str
   result=engine.execute(queryStr)
   ret=result.fetchall()
@@ -132,12 +133,17 @@ def registConference():
       pass
 
 #insert into user(name,realName,organization,email,password,identity,filePath) values ('1','<>','1','1','1','1','1');
-@zc.route('/search/<searchKey>',methods=['GET'])
-def search(searchKey):
-  if(request.method=='GET'):
+@zc.route('/search/',methods=['GET','POST'])
+def search():
+  data = getParam((request.get_data()).decode())
+  print(data)
+  key=data['key']
+  if(request.method=='POST'):
+    print(key)
     try:
-      searchKey=str(searchKey)
-      conferences=getSearchResult(searchKey,'conference')
+      key=str(key)
+      print(key)
+      conferences=getSearchResult(key,'conference')
       print(conferences)
       #if(conferences==[]):
         #return jsonify({"result":0})
@@ -153,8 +159,8 @@ def search(searchKey):
         result['location']=confer[6]
         result['abstract']=confer[11]
         jsonData.append(result)
+        print('test')
 
-      print(jsonData)
       jsonData=json.dumps(jsonData,ensure_ascii=False)
       return jsonData
     finally:

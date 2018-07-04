@@ -13,14 +13,22 @@ def register_blueprints(app):
     from .API import zc
     from .API import holy
     from .API import home
+    from .API import userAPI
+    from .API import collection
     app.register_blueprint(zc)
     app.register_blueprint(holy)
     app.register_blueprint(home)
+    app.register_blueprint(userAPI)
+    app.register_blueprint(collection)
 register_blueprints(app)
 
 @app.route('/login',methods = ['GET','POST'])
 def hello_world():
     return send_file('./templates/index.html')
+
+@app.route('/download',methods = ['GET','POST'])
+def hahah():
+    return send_file('./templates/favicon.jpg')
 
 @app.route('/', methods = ['GET', 'POST'])
 @app.route('/index',methods = ['GET','POST'])
@@ -72,10 +80,17 @@ def process9():
 def process10():
     return send_file('./templates/myTougao.html')
 
-@app.route('/search1',methods = ['GET','POST'])
-def process10():
+@app.route('/searchPage',methods = ['GET','POST'])
+def process11():
     return send_file('./templates/search.html')
+@app.route('/admin',methods = ['GET','POST'])
+def process12():
+    return send_file('./templates/admin.html')
+@app.route('/primaryInfoUpdate',methods = ['GET','POST'])
+def process13():
+    return send_file('./templates/primary_info_update.html')
 
 if __name__ == '__main__':
-    app.config['JSON_AS_ASCII'] = False
-    app.run()
+	app.config['JSON_AS_ASCII'] = False
+	app.debug=True
+	app.run()
