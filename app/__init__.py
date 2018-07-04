@@ -12,8 +12,10 @@ def register_blueprints(app):
     # Prevents circular imports
     from .API import zc
     from .API import holy
+    from .API import home
     app.register_blueprint(zc)
     app.register_blueprint(holy)
+    app.register_blueprint(home)
 register_blueprints(app)
 
 @app.route('/login',methods = ['GET','POST'])
@@ -57,6 +59,22 @@ def process6():
 @app.route('/primary_info',methods = ['GET','POST'])
 def process7():
     return send_file('./templates/primary_info.html')
+
+@app.route('/primary_info_user',methods = ['GET','POST'])
+def process8():
+    return send_file('./templates/primary_info_user.html')
+
+@app.route('/myJoinedConference',methods = ['GET','POST'])
+def process9():
+    return send_file('./templates/myJoinedConference.html')
+
+@app.route('/myTougao',methods = ['GET','POST'])
+def process10():
+    return send_file('./templates/myTougao.html')
+
+@app.route('/search1',methods = ['GET','POST'])
+def process10():
+    return send_file('./templates/search.html')
 
 if __name__ == '__main__':
     app.config['JSON_AS_ASCII'] = False

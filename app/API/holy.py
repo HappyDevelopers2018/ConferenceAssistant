@@ -8,7 +8,24 @@ engine = create_engine("mysql+pymysql://root:123@localhost:3306/happy?charset=ut
 holy = Blueprint('holy', __name__)
 
 
-
+def getUnregisterOrg(db):
+    queryS = 'select * from '+db+' where identity=2'
+    result = engine.execute(queryS)
+    ret = result.fetchall()
+    print(ret)
+    jsonData = []
+    for row in ret:
+        result = {}
+        result['id'] = row[0]
+        result['name'] = row[1]
+        result['realname'] = row[2]
+        result['organization'] = row[3]
+        result['email'] = row[4]
+        result['identity'] = row[6]
+        result['filepath'] = row[7]
+        jsonData.append(result)
+    print(jsonData)
+    return jsonData
 def getCollectionByID(user_id,dbCon,dbCol):
     queryS = 'select conference_id from '+dbCol+' where user_id='+user_id
     result = engine.execute(queryS)
@@ -226,12 +243,12 @@ def returnConferenceByUserID(id):
 def returnCollectionByUserID(id):
       if request.method == 'GET':
             try:
-                  res=getCollectionByID(id,'conference','userCollection')
-                  print(1)
-                  print(res)
+                res=getCollectionByID(id,'conference','userCollection')
+                print(1)
+                print(res)
 
-                  jsondatar=json.dumps(res,ensure_ascii=False)
-                  print(jsondatar)
+                jsondatar=json.dumps(res,ensure_ascii=False)
+                print(jsondatar)
                 #   engine.execute(
                 # "INSERT INTO user(name,organization,email,password,identity,realName,filePath) \
                 # VALUES (%(name)s,%(realName)s,%(organization)s,%(email)s,%(password)s, %(identity)s,%(filePath)s,)",
@@ -254,6 +271,26 @@ def returnUserByUserName(name):
                   print(1)
                   print(res)
 
+                  jsondatar=json.dumps(res,ensure_ascii=False)
+                  print(jsondatar)
+                #   engine.execute(
+                # "INSERT INTO user(name,organization,email,password,identity,realName,filePath) \
+                # VALUES (%(name)s,%(realName)s,%(organization)s,%(email)s,%(password)s, %(identity)s,%(filePath)s,)",
+                # name=data['name'],realName=data['realName'],
+                # organization=data['organization'],email=data['email'],
+                # password=data['password'],identity=data['identity'],
+                # filePath=data['filePath']
+                # )
+            except:
+                return jsonify({"result":0})
+            else:
+                  #return jsonify({"result":1})
+                return jsondatar
+@holy.route('/returnOrganization',methods=['GET'])
+def returnOrganization():
+    if request.method == 'GET':
+            try:
+                  res=getUnregisterOrg('user')
                   jsondatar=json.dumps(res,ensure_ascii=False)
                   print(jsondatar)
                 #   engine.execute(

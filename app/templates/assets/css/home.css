@@ -1,6 +1,6 @@
 .banner-container{
     height: 420px;
-    position: absolute;
+    position: relative;
     left: 0;
     width: 100%;
     margin-bottom: 10px;
@@ -8,7 +8,7 @@
 }
 .banner{
     background: url("../images/map.png") center center no-repeat;
-    background-size: 80% 100%;
+    background-size: 80% 120%;
     margin: 0;
     width:100%;
     height: 100%;
@@ -17,4 +17,169 @@
 .clear{
     height: 40%;
     width: 100%;
+}
+
+.form_control_new
+{
+    display: block;
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 0.8rem;
+    line-height: 0.8;
+    color: #495057;
+    background-color: transparent;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    /*border-radius: .25rem;*/
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.search-btn{
+    width: -webkit-fill-available;
+    height: 100%;
+    border: #009;
+    border-radius: 0 2px 2px 0;
+    outline: none;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #8cb1eb;
+    cursor: pointer;
+}
+.form-control-nav{
+    padding-left: 10px;
+    border: 1px solid #ccc;
+    vertical-align: middle;
+    background: #fff;
+    outline: none;
+    -webkit-transition: box-shadow 0.20s ease-in-out;
+    -moz-transition: box-shadow 0.20s ease-in-out;
+    border-radius: 0px;
+    float: left;
+    height: 32px;
+    width: 96% !important;
+    padding-right: 30px !important;
+}
+.cha{background: #67adc9;
+    border: none;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    height: 32px;
+    color: #fff;
+    padding: 1px 10px 1px 5px;}
+.nav-form{
+    padding-right: 15px;
+    display: inline-block;
+}
+.btn-primary-new{
+    background-color: #67adc9;
+    color: #FFFFFF;
+}
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.btn-primary:active:focus,
+.btn-primary:active:hover,
+.btn-primary.active:focus,
+.btn-primary.active:hover,
+.show>.btn-primary.dropdown-toggle,
+.show>.btn-primary.dropdown-toggle:focus,
+.show>.btn-primary.dropdown-toggle:hover {
+    background-color: #2b579a;
+    color: #FFFFFF;
+    box-shadow: none;
+}
+
+.btn-primary:hover {
+    box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.17);
+}
+
+.btn-primary.disabled,
+.btn-primary.disabled:hover,
+.btn-primary.disabled:focus,
+.btn-primary.disabled.focus,
+.btn-primary.disabled:active,
+.btn-primary.disabled.active,
+.btn-primary:disabled,
+.btn-primary:disabled:hover,
+.btn-primary:disabled:focus,
+.btn-primary:disabled.focus,
+.btn-primary:disabled:active,
+.btn-primary:disabled.active,
+.btn-primary[disabled],
+.btn-primary[disabled]:hover,
+.btn-primary[disabled]:focus,
+.btn-primary[disabled].focus,
+.btn-primary[disabled]:active,
+.btn-primary[disabled].active,
+fieldset[disabled] .btn-primary,
+fieldset[disabled] .btn-primary:hover,
+fieldset[disabled] .btn-primary:focus,
+fieldset[disabled] .btn-primary.focus,
+fieldset[disabled] .btn-primary:active,
+fieldset[disabled] .btn-primary.active {
+    background-color: #2b579a;
+    border-color: #343ff9;
+}
+.information{
+    position: relative;
+    /*background-color: #eae6eb;*/
+}
+.blog-sidebar{
+    float: left;
+    /*background-color: #2b579a;*/
+}
+.ddlin{
+    text-align: center;
+    padding: 10px;
+}
+.information-l{
+    /*background: #fff;*/
+    border: 1px solid #d1d1d1;
+    margin-top: 10px;
+    float: left;
+    width: 100%;
+}
+.confer{
+    text-align: right;
+    width: 85%;
+    float: right;
+    border: #8cb1eb 1px solid;
+    padding: 10px;
+    /*margin-left: auto;*/
+    /*margin-right: auto;*/
+    margin-bottom: 8px;
+}
+.info-detail{
+    display: inline-block;
+    white-space:nowrap;
+}
+.c-info{
+    display: inline-block;
+    margin: 8px 0;
+    font-size: 18px;
+
+}
+.confer a{
+   color: #0c1558;
+
+}
+.confer a:hover{
+    text-decoration: underline;
+}
+.confer:hover{
+    box-shadow:10px 10px 2px #DDDDDD;
+    width: 90%;
+}
+.loc{
+    width: 18px;
+    height: 18px;
+    background-size: 100% !important;
+    margin-right: 5px;
+}
+.i-date{
+    width: 18px;
+    height: 18px;
+    background-size: 100% !important;
+    margin-right: 5px;
 }

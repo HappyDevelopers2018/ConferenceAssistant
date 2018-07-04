@@ -12,6 +12,22 @@
 
     <title>学术会议网站</title>
 </head>
+<script type="text/javascript">
+    $(document).ready(function() {
+        alert("go into ready")
+        $.ajax({
+            url: "/getNewConference",
+            type: "GET",
+            datatype: jsonData,
+            success: function (data) {
+                console.log(data)
+            },
+            error: function () {
+                alert("error in ready !")
+            }
+        })
+    })
+</script>
 <script>
     function logout() {
         var t=new Date();
@@ -49,6 +65,11 @@
             alert('您没有权限创建会议，请注册为机构用户')
         }
     }
+    function search() {
+        var searchKey=$('#searchKey').val();
+        console.log(searchKey);
+        window.location.href='search?kw='+searchKey
+    }
 
 </script>
 <body onload="getName()">
@@ -67,8 +88,8 @@
             <form class="nav-form"  >
                 <div style="position: relative;">
             <span >
-                <input type="text" class="search form-control-nav" placeholder="搜索会议">
-                <button type="submit" class="cha">搜索</button>
+                <input type="text" class="search form-control-nav" placeholder="搜索会议" id="searchKey" name="searchKey">
+                <button class="cha" onclick="search()">搜索</button>
             </span>
                 </div>
             </form>
@@ -135,6 +156,45 @@
 
 
 </div>
+
+
+    <div class="information">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-9 blog-main">
+                    <div style="margin-top: 15px"></div>
+
+                    <div class="confer shadow ">
+                        <a href="#"><h3>中国心理卫生协会第十一次全国心理卫生学术大会</h3></a>
+                        <div class="c-info">
+                            <span class="mr-2"><img src="assets/images/loc.png" class="loc">beijing</span>
+                            <span><span><img src="assets/images/date.png" class="i-date">2018.7.4</span> - <span>2018.7.15</span></span></span>
+                            <p class="mb-0 pb-0"><img src="assets/images/department.png" class="i-date">主办方 <span>BUAA</span></p>
+                        </div>
+                    </div>
+                    <div class="confer shadow ">
+                        <a href="#"><h3>中国心理卫生协会第十一次全国心理卫生学术大会</h3></a>
+                        <div class="c-info">
+                            <span style="margin-right: 10px">beijing</span>  <span>2018-7-4</span>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col-sm-3 blog-sidebar">
+                    <div class="information-l skas">
+                        <div class="ddlin">
+                            <h3>会议总数</h3>
+                            <img src="assets/images/mp_mini.jpg" style="width: 100% ;">
+                            <span>200</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
 </div>
 

@@ -10,7 +10,13 @@ import urllib.parse
 engine = create_engine("mysql+pymysql://root:123@localhost:3306/happy?charset=utf8")
 
 zc = Blueprint('zc', __name__)
+def getSearchResult(str,db):
+  queryStr='select * from '+ db+' where conferenceName= '
+  queryStr+=str
+  result=engine.execute(queryStr)
+  ret=result.fetchall()
 
+  return ret
 def getParam (str):
   keyValue = str.split("&")
   obj = {}
@@ -24,30 +30,28 @@ def getID(obj,db):
   l=len(obj)
   for each in obj:
     l-=1
-    queryStr+=each+'='+obj[each]
+    queryStr+=each+'="'+urllib.parse.unquote(obj[each])+'"'
     if l>0:
       queryStr+=' and '
-  print(queryStr)
+  print("getID: "+queryStr)
   result = engine.execute(queryStr)
   ret = result.fetchall()
   return ret
 
 def insertDB(obj,db):
   queryStr='insert into '+db+'('
+  queryStr2=') values ('
   l=len(obj)
   for each in obj:
     l-=1
+    print(each,urllib.parse.unquote(obj[each]))
     queryStr+=each
+    queryStr2+='"'+urllib.parse.unquote(obj[each])+'"'
     if l>0:
       queryStr+=','
-  queryStr+=') values ('
-  l=len(obj)
-  for each in obj:
-    l-=1
-    queryStr+='"'+urllib.parse.unquote(obj[each])+'"'
-    if l>0:
-      queryStr+=','
-  queryStr+=')'
+      queryStr2+=','
+
+  queryStr=queryStr+queryStr2+')'
   print(queryStr)
   return queryStr
 
@@ -117,12 +121,42 @@ def registConference():
     data = getParam((request.get_data()).decode())
     print(data)
     try:
-      result=engine.execute(insertDB(data,'conference'))
+      engine.execute(insertDB(data,'conference'))
+      ret=getID(data,'conference')
+      print(ret)
     except:
       return jsonify({"result":0})
     else:
-      return jsonify({"result":1})
+      return jsonify({"result":ret[0][0]})
     finally:
       pass
 
 #insert into user(name,realName,organization,email,password,identity,filePath) values ('1','<>','1','1','1','1','1');
+@zc.route('/search/<searchKey>',methods=['GET'])
+def search(searchKey):
+  if(request.method=='GET'):
+    try:
+      searchKey=str(searchKey)
+      conferences=getSearchResult(searchKey,'conference')
+      print(conferences)
+      #if(conferences==[]):
+        #return jsonify({"result":0})
+    except:
+      return jsonify({"result":0})
+    else:
+      result={}
+      jsonData=[]
+      for confer in conferences:
+        result['conferenceName']=confer[2]
+        result['startTime']=confer[4]
+        result['endTime']=confer[5]
+        result['location']=confer[6]
+        result['abstract']=confer[11]
+        jsonData.append(result)
+
+      print(jsonData)
+      jsonData=json.dumps(jsonData,ensure_ascii=False)
+      return jsonData
+    finally:
+      pass
+
