@@ -11,6 +11,7 @@ function changecolor(){
 function download(filename,postfix){
     var fname = filename+"."+postfix
     console.log(fname)
+    /*
     $.ajax({
         type:"GET",
         url:"/download/"+fname,
@@ -18,14 +19,16 @@ function download(filename,postfix){
             console.log("sucess")
             console.log(data)
         }
-        /*
+
         error:function(data)
         {
             console.log("error")
             console.log(data)
         }
-        */
+
     })
+    */
+    window.location.href="/download/"+fname
 }
 function pass(id){
     $.ajax({
@@ -62,6 +65,17 @@ function reject(id){
     })
 }
 function onload(){
+    name=getUserNameByCookie();
+    console.log(name)
+    if(!name){
+         window.location.href="login";
+    }
+    else if(name!="admin")
+    {
+        alert("抱歉，你不是管理员！");
+        window.location.href="index";
+    }
+    else{
 	$.ajax({
 		type:"GET",
 		url:"/returnOrganization",
@@ -95,13 +109,19 @@ function onload(){
 		    console.log("error");
 		}
 	})
+	}
 
 }
 
 function admin(){
 	window.location.href="/admin";
 }
-
+function adminAC(){
+	window.location.href="/adminAC";
+}
+function adminRej(){
+	window.location.href="/adminRej";
+}
 /*
 function conference_manage(){
 	window.location.href="/conference_manage";

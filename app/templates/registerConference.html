@@ -1,0 +1,297 @@
+
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <link rel="icon" href="assets/images/icon.png">
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/ConferenceIndexCss.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="assets/css/now-ui-kit.css">
+    <link href="assets/css/Common.css" rel="stylesheet">
+    <link href="assets/css/conf-index.css" rel="stylesheet">
+    <title>注册会议</title>
+    <script type="text/javascript" src="assets/js/core/jquery.3.2.1.min.js"></script>
+    <script type="text/javascript" src="assets/js/core/bootstrap.min.js"></script>
+    <script src="assets/js/ConferenceIndex.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/css/baseTest.css">
+    <script src="assets/js/cookie.js" type="text/javascript"></script>
+    <script src="assets/js/navibar.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="assets/css/notification.css">
+    <script src="assets/js/notification.js" type="text/javascript"></script>
+
+</head>
+<script type="text/javascript">
+    $(document).ready(function() {
+        add();
+        var name=getUserNameByCookie();
+        if(!name){
+            window.location.href="login";
+
+        }
+        else{
+            // $('#login').html(name);
+            var identity=''
+            if(name =="admin")identity="管理员"
+            idd = getUserIdentityByCookie()
+            if(idd==1)identity="个人用户"
+            else if(idd == 3)identity="单位用户"
+            else if(idd==2)identity="审核中"
+            else if(idd==4)identity="审核失败"
+            //alert(identity)
+            $('#login').html(name+" ("+identity+")");
+        }
+    })
+    function on_load()
+    {
+        load_notification();
+        onload();
+    }
+</script>
+<body onload="on_load()">
+<nav class="new-nav  mb-0 pb-0" style="margin-bottom: 0;padding-bottom: 0" >
+    <div class="container-nav">
+        <div style="margin-right: 0.8rem">
+            <a class="navbar-brand-new" style="font-size: large;color: white;text-decoration: none" href="/index">Conference</a>
+        </div>
+        <div>
+            <ul class="topnav">
+                <li class="icon">
+                    <a href="javascript:void(0);" style="font-size:15px;" onclick="myFunction()">☰</a>
+                </li>
+                <li><a onclick="logout()">登出</a></li>
+                <!--<li style="display: none" id="alarm"><a><img src="assets/images/alarm.png" height="16px" width="16px"></a></li>-->
+
+                <li><a id="login" onclick="login()" style="text-transform: none">登录</a></li>
+
+                <li><a id="myid" onclick="toMy()">我的页面</a></li>
+                <li><a id="conference" onclick="submitConf()">发布会议</a></li>
+                <li><a  href="/index">主页</a></li>
+                <li class="search-li">
+                    <div class="nav-search">
+                        <!--<form class="nav-form"  >-->
+                        <div style="position: relative;">
+                        <span >
+                            <input type="text" class="search form-control-nav" placeholder="搜索会议" id="searchKey" name="searchKey">
+                            <button class="cha" onclick="search1()">搜索</button>
+                        </span>
+                        </div>
+                        <!--</form>-->
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="content-main">
+    <div class="nav-top-er">
+        <div class="container container-l">
+            <h1 class="nav-er-h1 nav-er-h1-l zh-cn">
+                <a href="#" id="conferenceName"> 2018（北航软院）小学期通宵动员大会 </a>
+            </h1>
+            <div class="row nav-er-d nav-er-d-l">
+                <p class="col-sm-12 col-md-8">
+                        <span class="er-dst">
+                            <i class="icon icon-rd"></i>
+                            <span id="startTime">2018-07-01</span>
+                            <span class="time_difference" id="time_difference"></span>
+                            <span class="time_zone"></span>
+                        </span>
+                    <span class="er-dst er-dstm">
+                            <i class="icon icon-rd icon-rd2"></i>
+                            <span class="conf-position" id="city">中国 · 北京 北京市 </span>
+                        </span>
+                </p>
+                <!--<div class="col-sm-12 col-md-4 nav-er-p2" id="conf-detail-btn-group">-->
+                    <!--<a href="#" id="conf-favorite-btn" class="conf-favorite-btn favorite-no">-->
+                        <!--<i id="favorite-change" class="icon icon-vl icon-vl2" onclick="submitFavorite()" ></i>收藏</a>-->
+                <!--</div>-->
+            </div>
+        </div>
+    </div>
+
+
+    <div class="information">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 blog-main conf_page" >
+                    <!-- 内容开始 -->
+                    <style>
+                        .table p{
+                            max-width:980px!important;
+                            word-break: break-all;
+                            line-height:20px;
+                        }
+                        .table{border:1px solid #ddd;}
+                        .table td{border:1px solid #ddd;}
+                        .conf-details-schedule .schedule ul{
+                            list-style: disc;
+                            padding-left: 40px;
+                        }
+                        .conf_live{
+                            padding: 5px 10px;
+                            border:1px solid #ddd;
+                            border-radius: 4px;
+                            font-size: 13px;
+                            margin-left: 15px;
+                        }
+                        .live{
+                            background: #f5faf8;
+                            border-top: 1px solid #e0e0e0;
+                        }
+                        .media-h4{
+                            max-width: 70%;
+                        }
+                        .media-div-p {
+                            max-width: 70%;
+                        }
+                    </style>
+
+                    <!--<div class="chooseNum mt-2 pt-2 mb-1 pb-2">-->
+                        <!--<span class="badge badge-info">注册信息</span>-->
+                        <!--&lt;!&ndash;&lt;!&ndash;<ul class="pagination pagination-primary pl-3">&ndash;&gt;&ndash;&gt;-->
+                            <!--&lt;!&ndash;&lt;!&ndash;<li class="registerNum">注册人数</li>&ndash;&gt;&ndash;&gt;-->
+                            <!--&lt;!&ndash;&lt;!&ndash;<li class="page-item active" ><a class="page-link" onclick="add()">+</a></li>&ndash;&gt;&ndash;&gt;-->
+                            <!--&lt;!&ndash;&lt;!&ndash;<li class="page-item active"><a class="page-link" onclick="minus()">-</a></li>&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;</ul>&ndash;&gt;&ndash;&gt;-->
+                    <!--</div>-->
+
+
+
+
+                        <div class="attendence"  id="attendenceid" style="margin-top: 10px">
+                            <span class="badge badge-info " style="margin: 5px;color: #2b579a">注册信息</span>
+                            <!--<form method="post" enctype='multipart/form-data' action >-->
+                            <!--<div class="special">-->
+
+                            <!--<div class="row">-->
+                                <!--<div class="col-6">-->
+                                   <!--<span>*姓名 </span>-->
+                                    <!--<input type="text" id="newname" name="name">-->
+                                <!--</div>-->
+                                <!--<div class="col-6">-->
+                                    <!--<span>*电话 </span><input type="text" id="tel" name="tel" >-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="row">-->
+                                <!--<div class="col-6">-->
+                                    <!--<span>*性别 </span>-->
+                                    <!--<span><input type="radio" id="fradio" value="女" name='gender' style="display: inline" checked="checked"><label>女</label>-->
+                                    <!--<input type="radio" id="mradiio" value="男" name='gender' style="display: inline"><label>男</label></span>-->
+                                <!--</div>-->
+                                <!--<div class="col-6">-->
+                                    <!--<span>*是否住宿 </span>-->
+                                    <!--<span><input type="radio" id="yesradio" name="accommodation" value="是" style="display: inline" checked="checked"><label>是</label>-->
+                                    <!--<input type="radio" id="noradiio" name="accommodation" value="否" style="display: inline"><label>否</label></span>-->
+                                <!--</div>-->
+                                <!--</div>-->
+                            <!--<div class="row">-->
+                                <!--<div class="col-12" >-->
+                                    <!--<span> 说明 </span><input type="text" id="sm" placeholder="说明" style="width: 80%" name="remarks">-->
+                                <!--</div>-->
+
+                            <!--</div>-->
+                                <!--<div class="row" style="display: table">-->
+                                    <!--<div class="col-6">-->
+                                        <!--<span style="color: #f96332">上传缴费凭证</span>-->
+                                        <!--<input  type="file" name="file" required>-->
+                                    <!--</div>-->
+                                    <!--&lt;!&ndash;<div class="col-3"></div>&ndash;&gt;-->
+                                    <!--<div class="col-6 " style="display: table-cell;vertical-align: middle" >-->
+                                        <!--<button class="btn btn-new ml-5" type="submit" style="border-radius: 0.8rem">申请注册</button>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--</form>-->
+
+
+
+
+
+                        </div>
+
+                    <!--<div class="row">-->
+                        <!--<div class="col-4"><span>用户名</span><input type="text"></div>-->
+                        <!--<div class="col-4"><span>密码</span><input type="text"></div>-->
+                        <!--<div class="col-4"><button style="background-color: #2b579a;border-radius: 2em;border: #2b579a">注册</button></div>-->
+                    <!--</div>-->
+
+                </div>
+
+                <!-- 侧栏 -->
+                <div class="col-sm-3 blog-sidebar">
+                    <div class="information-l pc_block">
+                        <ul class="connr-ru connr-ru-l" id="connr-ru-l">
+                            <li class="connr-ru-l-l">
+                                <a href="#" style="background: #eeeeee;color: #ccc" class="shop_useabled a_disable">立即投稿</a>
+                            </li>
+                            <li class="connr-ru-l-l">
+                                <a target="_blank" style="background: #eeeeee;color: #ccc"  href="#">注册参会</a>
+                            </li>
+                            <!--<li class="connr-ru-l-l drop_menu">-->
+                                <!--<a href="javascript:;" style="margin-bottom:0px;position:relative;">登录到会议<span class="caret"></span></a>-->
+                                <!--<ul class="sub_menu" style="display: none;">-->
+                                    <!--<li>-->
+                                        <!--<a href="#" target="_blank">参会人/报告人/作者</a>-->
+                                    <!--</li>-->
+                                    <!--<li>-->
+                                        <!--<a href="#" target="_blank">审稿人</a>-->
+                                    <!--</li>-->
+                                    <!--<li>-->
+                                        <!--<a href="#" target="_blank">会议管理人员</a>-->
+                                    <!--</li>-->
+                                <!--</ul>-->
+                            <!--</li>-->
+                        </ul>
+
+                    </div>
+                    <!--联系我们-->
+                    <div class="information-l" id="detail_contact">
+                        <h2 class="connr-h2">
+                            <span class="connr-und">联系我们</span>
+                        </h2>
+                        <div class="connrs-dul5 connrs-dul6-l">
+                            <ul>
+                                <li class="">
+                                    <i class="icon icon-rmm"></i>
+                                    <span class="conf_contact" id="ownerName">钟金成</span>
+                                </li>
+                                <li title="1438749412@qq.com">
+                                    <i class="icon icon-rmm icon-rmm2"></i>
+                                    <span class="conf_contact" id="ownerEmail">connorzhong@qq.com</span>
+                                </li>
+                                <li>
+                                    <i class="icon icon-rmm icon-rmm4"></i>
+                                    <span class="conf_contact" id="ownerTEL">18508126686</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="information-l">
+                        <h2 class="connr-h2">
+                            <span class="connr-und">主办单位</span>
+                        </h2>
+                        <ul class="connrs-dul3">
+                            <li id="ownerOrganization">北航软件学院</li>
+                        </ul>
+                    </div>
+                    <div class="information-l">
+                        <h2 class="connr-h2">
+                            <span class="connr-und">支持单位</span>
+                        </h2>
+                        <ul class="connrs-dul3">
+                            <li id="supporter">快乐开发项目组</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="return-top"><a href="messageBox"><img src="assets/images/alerts.svg"></a></div>
+
+</body>
+
+</html>

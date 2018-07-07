@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>个人用户信息</title>
+
+   <link rel="icon" href="assets/images/icon.png">
+    <script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script src="assets/js/jquery.cookie.js" type="text/javascript"></script>
+    <script src="assets/js/cookie.js" type="text/javascript"></script>
+	<script src="js/messageBox.js"></script>
+    <style>
+        .inbt-h1 .inbt-span {
+            color: #2b579a;
+        }
+    </style>
+    <style>
+        body {
+            background:url('assets/images/bg.png') no-repeat 0px 0px;
+            background-size: cover;
+            font-family: 'Open Sans', sans-serif;
+            background-attachment: fixed;
+            background-position: center;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="assets/css/baseTest.css">
+    <script src="assets/js/navibar.js" type="text/javascript"></script>
+</head>
+<script>
+    $(document).ready(function(){
+        var name=getUserNameByCookie();
+        if(!name){
+            window.location.href="login";
+
+        }
+        else{
+            // $('#login').html(name);
+            var identity=''
+            if(name =="admin")identity="管理员"
+            idd = getUserIdentityByCookie()
+            if(idd==1)identity="个人用户"
+            else if(idd == 3)identity="单位用户"
+            else if(idd==2)identity="审核中"
+            else if(idd==4)identity="审核失败"
+            //alert(identity)
+            $('#login').html(name+" ("+identity+")");
+        }
+    });
+</script>
+<script>
+function conference_manage(){
+	window.location.href="/myJoinedConference"
+}
+</script>
+<body onload="onload()">
+
+<nav class="new-nav  mb-0 pb-0" style="margin-bottom: 0;padding-bottom: 0" >
+    <div class="container-nav">
+        <div style="margin-right: 0.8rem">
+            <a class="navbar-brand-new" style="font-size: large;color: white;text-decoration: none" href="/index">Conference</a>
+        </div>
+        <div>
+            <ul class="topnav">
+                <li class="icon">
+                    <a href="javascript:void(0);" style="font-size:15px;" onclick="myFunction()">☰</a>
+                </li>
+                <li><a onclick="logout()">登出</a></li>
+                <!--<li style="display: none" id="alarm"><a><img src="assets/images/alarm.png" height="16px" width="16px"></a></li>-->
+
+                <li><a id="login" onclick="login()" style="text-transform: none">登录</a></li>
+
+                <li><a class="li-active-zzj"  id="myid" onclick="toMy()">我的页面</a></li>
+                <li><a id="conference" onclick="submitConf()">发布会议</a></li>
+                <li><a  href="/index">主页</a></li>
+                <li class="search-li">
+                    <div class="nav-search">
+                        <!--<form class="nav-form"  >-->
+                        <div style="position: relative;">
+                        <span >
+                            <input type="text" class="search form-control-nav" placeholder="搜索会议" id="searchKey" name="searchKey">
+                            <button class="cha" onclick="search1()">搜索</button>
+                        </span>
+                        </div>
+                        <!--</form>-->
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div style="margin-top: 1%">
+	<div  style="width:10%;float:left;margin-left:5%;padding-left: 0;margin-bottom: 20px; box-sizing: border-box;">
+        <b  style="background-color: #2b579a" class="list-group-item active">
+            个人账户信息
+        </b>
+  		<button class="list-group-item" onClick="primary_info()">个人基本信息</button>
+  		<button class="list-group-item" onclick="conference_manage()">我参加的会议</button>
+        <button class="list-group-item" onclick="tougao_manage()">投稿管理</button>
+        <button style="background-color: #C4C4C4" class="list-group-item" onclick="messagesBox()">消息</button>
+    </div>
+	<div class="showblock" id="showblock" style="margin-left:5%;width:75%;height:auto;float:left;border: 1px solid #DCDCDC;padding:2.5%">
+
+        <button onclick="readAll()" type="button" class="btn btn-primary" style="float: left;background-color: #2b579a">一键全读</button>
+        <br>
+        <br>
+
+
+
+	</div>
+ 
+</div>
+</body>
+</html>
+
+
+

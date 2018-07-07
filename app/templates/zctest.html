@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <form role="form" method="POST" enctype=multipart/form-data id='form1'>
+        ...
+        <label for="question_file">题目文件</label><small class="pull-right" id="length_info"></small>
+        <input class="form-control input-sm" id="question_file" name="question_file" required type="file">
+        ...
+        <button type="submit" class="btn btn-default" id='submit1'>提交</button>
+    </form>
+<script type="text/javascript" src="assets/js/core/jquery.3.2.1.min.js"></script>
+    <script>
+        $('#question_file').change(function(){
+            var form_data = new FormData($('#form1')[0]);
+    //$('#form1')是个list，所以要得到form必须用下标取
+    $.ajax({
+        url: '/get_file_len',
+        type: 'POST',
+        data: form_data,
+        contentType: false,
+        processData: false,
+        success: function(length){
+            $('#length_info').html('该文件共'+ length +'行')
+        },
+    });
+})
+</script>
+</body>
+</html>

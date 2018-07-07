@@ -2,14 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" href="assets/images/icon.png">
     <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="assets/css/now-ui-kit.css">
     <link rel="stylesheet" type="text/css" href="assets/css/home.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/baseTest.css">
     <script src="assets/js/jquery.min.js"></script>
 
     <script src="assets/js/jquery.cookie.js" type="text/javascript"></script>
     <script src="assets/js/cookie.js" type="text/javascript"></script>
-
+    <script src="assets/js/navibar.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="assets/css/shutter.css">
+    <!--<script src="assets/js/common.js" type="text/javascript"></script>-->
+    <link rel="stylesheet" type="text/css" href="assets/css/notification.css">
+    <script src="assets/js/notification.js" type="text/javascript"></script>
     <title>学术会议网站</title>
 </head>
 <script type="text/javascript">
@@ -53,7 +59,7 @@
                         "                        <div class=\"c-info\">\n" +
                         "                            <span class=\"mr-2\"><img src=\"assets/images/loc.png\" class=\"loc\">"+data[i]['location']+"</span>\n" +
                         "                            <span><span><img src=\"assets/images/date.png\" class=\"i-date\">"+data[i]['startTime']+"</span> - <span>"+data[i]['endTime']+"</span></span></span>\n" +
-                        "                            <p class=\"mb-0 pb-0\"><img src=\"assets/images/department.png\" class=\"i-date\">主办方 <span>"+data[i]['organizer']+"</span></p>\n" +
+                        "                            <p class=\"mb-0 pb-0\"><img src=\"assets/images/department.png\" class=\"i-date\">主办方 <span>"+data[i]['ownerOrganization']+"</span></p>\n" +
                         "                        </div>\n" +
                         "                    </div>"
                     $("#conferid").append(conferdiv);
@@ -69,130 +75,121 @@
 
 
     })
+    function on_load()
+    {
+        load_notification();
+        getName();
+    }
 </script>
 <script>
-    function logout() {
-        var t=new Date();
-	    t.setTime(0);
-	    document.cookie="name=;expires="+t.toGMTString()+";path=/";
-	    document.cookie="id=;expires="+t.toGMTString()+";path=/";
-        name="";
-	    $('#login').html("登录");
-	    window.location.href="index";
-    }
-    function login() {
-        name=getUserNameByCookie();
-        console.log(name)
-        if(!name){
-            window.location.href="login";
 
-        }
-        else{
-            $('#login').html(name);
-        }
-    }
-    function getName() {
-        name=getUserNameByCookie();
-        console.log(name);
-        if(name){
-            $('#login').html(name);
-        }
-    }
-    function submitConf() {
-        identity=getUserIdentityByCookie();
-        if(identity==3){
-            window.location.href='process1'
-        }
-        else if(identity==1){
-            alert('您没有权限创建会议，请注册为机构用户')
-        }
-        else if(identity==2){
-            alert('该单位用户申请正在审核中')
-        }
-        else if(identity==4){
-            alert('该单位用户申请被拒绝')
-        }
-    }
-    function search() {
-        var searchKey=$('#searchKey').val();
-        console.log(searchKey);
-        window.location.href='search?kw='+searchKey
-    }
+
+
+
 
 </script>
-<body onload="getName()">
-<nav class="navbar navbar-expand-lg " style="background-color: #2b579a">
-    <div class="container">
-        <div class="navbar-translate">
-            <a class="navbar-brand" href="#pablo">
-                Conference
-            </a>
+<body onload="on_load()">
+
+<nav class="new-nav" >
+    <div class="container-nav">
+        <div style="margin-right: 0.8rem">
+            <a class="navbar-brand-new" style="font-size: large;color: white;text-decoration: none" href="/index">Conference</a>
         </div>
-
-
-
-
-        <div class="collapse navbar-collapse justify-content-end" id="navigation">
-            <form class="nav-form"  >
-                <div style="position: relative;">
-
-            <span >
-                <input type="text" class="search form-control-nav" placeholder="搜索会议" id="searchKey" name="searchKey">
-                <button class="cha" onclick="search()">搜索</button>
-            </span>
-                </div>
-            </form>
-
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#pablo">
-                        主页
-                    </a>
+        <div>
+            <ul class="topnav">
+                <li class="icon">
+                    <a href="javascript:void(0);" style="font-size:15px;" onclick="myFunction()">☰</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="conference" onclick="submitConf()">发布会议</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#pablo">我的</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="login" onclick="login()" style="text-transform: none">登录</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link " onclick="logout()">登出</a>
+                <li><a onclick="logout()">登出</a></li>
+                <!--<li style="display: none" id="alarm"><a><img src="assets/images/alarm.png" height="16px" width="16px"></a></li>-->
+
+                <li><a id="login" onclick="login()" style="text-transform: none">登录</a></li>
+
+                <li><a id="myid" onclick="toMy()">我的页面</a></li>
+                <li><a id="conference" onclick="submitConf()">发布会议</a></li>
+                <li><a class="li-active-zzj" href="/index">主页</a></li>
+                <li class="search-li">
+                    <div class="nav-search">
+                        <!--<form class="nav-form"  >-->
+                            <div style="position: relative;">
+                        <span >
+                            <input type="text" class="search form-control-nav" placeholder="搜索会议" id="searchKey" name="searchKey">
+                            <button class="cha" style="padding: 1px 6px;"  onclick="search1()">搜索</button>
+                        </span>
+                            </div>
+                        <!--</form>-->
+                    </div>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
 <div>
-<div class="banner-container">
-<div class="banner">
-    <div class="clear"></div>
-    <div class="container" >
-        <div class="row" style="position: relative">
-            <div class="col-xl-9 mx-auto">
-            <h1 class="mb-5" style="font-size: 3rem; color: #244683">学 术 会 议</h1>
+<!--<div class="banner-container">-->
+<!--<div class="banner">-->
+    <!--<div class="clear"></div>-->
+    <!--<div class="container" >-->
+        <!--<div class="row" style="position: relative">-->
+            <!--<div class="col-xl-9 mx-auto">-->
+            <!--<h1 class="mb-5" style="font-size: 3rem; color: #244683">学 术 会 议</h1>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="row" >-->
+            <!--<button class="btn-lg btn-primary" onclick=submitConf()-->
+                    <!--style="text-align: center; margin: 0 auto; background-color: #2b579a;font-size: 20px">-->
+                <!--发布会议</button>-->
+        <!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+
+    <div>
+        <div class="shutter mt-0 mb-1">
+            <div class="container" style=" z-index:2; position: absolute">
+                <div class="row" >
+                    <div class="col-xl-9 mx-auto mb-3 pt-2" >
+                        <h1 class="mb-5 mt-3 " style="font-size: 3rem; color: #c8cac5;text-align: center">
+                            学 术 会 议 </h1>
+                    </div>
+                </div>
+                <div class="row" >
+                    <button class="btn-lg btn-primary" onclick=submitConf()
+                            style="text-align: center; margin: 0 auto; background-color: #2b579a;font-size: 20px">
+                        发布会议</button>
+                </div>
             </div>
+
+            <div class="shutter-img mt-0">
+                <a href="#" data-shutter-title="学术会议"><img src="assets/images/mp4jpg.jpg" alt="#"></a>
+
+                <a href="#" data-shutter-title="学术会议"><img src="assets/images/441.jpg" alt="#"></a>
+                <a href="#" data-shutter-title="学术会议"><img src="assets/images/a21.png" alt="#"></a>
+                <!--<a href="#" data-shutter-title="学术会议"><img src="assets/images/mp5.png" alt="#"></a>-->
+            </div>
+            <ul class="shutter-btn">
+                <li class="prev"></li>
+                <li class="next"></li>
+            </ul>
+            <div class="shutter-desc">
+                <p>学术会议</p>
+            </div>
+
         </div>
-        <div class="row" >
-            <button class="btn-lg btn-primary" onclick=submitConf()
-                    style="text-align: center; margin: 0 auto; background-color: #2b579a;font-size: 20px">
-                创建会议</button>
-        </div>
 
-
-
-
-
-</div>
-
-</div>
-
-
-</div>
-
-
+        <script src="assets/js/velocity.js"></script>
+        <script src="assets/js/shutter.js"></script>
+        <script>
+            $(function () {
+                $('.shutter').shutter({
+                    shutterW: 1000, // 容器宽度
+                    shutterH: 358, // 容器高度
+                    isAutoPlay: true, // 是否自动播放
+                    playInterval: 3000, // 自动播放时间
+                    curDisplay: 0, // 当前显示页
+                    fullPage: false // 是否全屏展示
+                });
+            });
+        </script>
     <div class="information">
         <div class="container">
             <div class="mt-3"></div>
@@ -222,6 +219,7 @@
 
 
 </div>
+<div id="return-top"><a href="messageBox"><img src="assets/images/alerts.svg"></a></div>
 
 </body>
 </html>

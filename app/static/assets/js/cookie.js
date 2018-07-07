@@ -14,6 +14,7 @@ function getUserNameByCookie() {
 function getUserIdByCookie() {
     var cookies=document.cookie.split(";");
 	var l=cookies.length;
+	var id=0;
 	for(var i=0;i<l;i++)
 	{
 		if($.trim(cookies[i].split("=")[0])=="id")
@@ -27,6 +28,7 @@ function getUserIdByCookie() {
 function getUserIdentityByCookie() {
     var cookies=document.cookie.split(";");
 	var l=cookies.length;
+	var identity=0;
 	for(var i=0;i<l;i++)
 	{
 		if($.trim(cookies[i].split("=")[0])=="identity")

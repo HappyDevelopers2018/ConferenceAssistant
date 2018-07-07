@@ -164,7 +164,7 @@ select::-ms-expand{display: none;}
 .icon-vl {
 	width: 19px;
 	height: 18px;
-	background: url(//file.aconf.org/public/images2.0/aconf_cn/icon-vl.png);
+	background:red url(//file.aconf.org/public/images2.0/aconf_cn/icon-vl.png);
 }
 
 .icon-vl2 {

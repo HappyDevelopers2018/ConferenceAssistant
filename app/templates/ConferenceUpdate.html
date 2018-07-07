@@ -1,0 +1,386 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html >
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+
+
+    <!--//中-->
+    <link rel="icon" href="favicon.jpg">
+    <!--<link href="assets/css/bootstrap.min.css" rel="stylesheet">-->
+    <link href="assets/css/ConferenceIndexCss.css" rel="stylesheet">
+    <link href="assets/css/Common.css" rel="stylesheet">
+    <link href="assets/css/conf-index.css" rel="stylesheet">
+    <title>会议页面</title>
+    <script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link href="summernote-master/dist/summernote.css" rel="stylesheet">
+    <script src="summernote-master/dist/summernote.js"></script>
+    <script src="summernote-master/lang/summernote-zh-CN.js"></script>
+    <!--<script src="js/process1.js"></script>-->
+    <link href="css/city-picker.css" rel="stylesheet" type="text/css" />
+    <script src="js/city-picker.data.js"></script>
+    <script src="js/city-picker.js"></script>
+    <script src="assets/js/jquery.cookie.js" type="text/javascript"></script>
+    <script src="assets/js/cookie.js" type="text/javascript"></script>
+     <script src="js/ConferenceUpdate.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="assets/css/baseTest.css">
+    <script src="assets/js/navibar.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="assets/css/notification.css">
+    <script src="assets/js/notification.js" type="text/javascript"></script>
+</head>
+  <script>
+    $(document).ready(function(){
+        var name=getUserNameByCookie();
+        if(!name){
+            // window.location.href="login";
+
+        }
+        else{
+            // $('#login').html(name);
+            var identity=''
+            if(name =="admin")identity="管理员"
+            idd = getUserIdentityByCookie()
+            if(idd==1)identity="个人用户"
+            else if(idd == 3)identity="单位用户"
+            else if(idd==2)identity="审核中"
+            else if(idd==4)identity="审核失败"
+            //alert(identity)
+            $('#login').html(name+" ("+identity+")");
+        }
+    });
+    function on_load()
+    {
+        load_notification();
+        onload();
+    }
+</script>
+<body onload="on_load()">
+<div class="content-main">
+
+<nav class="new-nav mb-0 pb-0"  style="margin-bottom: 0;padding-bottom: 0">
+    <div class="container-nav">
+        <div style="margin-right: 0.8rem">
+            <a class="navbar-brand-new" style="font-size: large;color: white;text-decoration: none" href="/index">Conference</a>
+        </div>
+        <div>
+            <ul class="topnav">
+                <li class="icon">
+                    <a href="javascript:void(0);" style="font-size:15px;" onclick="myFunction()">☰</a>
+                </li>
+                <li><a onclick="logout()">登出</a></li>
+                <!--<li style="display: none" id="alarm"><a><img src="assets/images/alarm.png" height="16px" width="16px"></a></li>-->
+
+                <li><a id="login" onclick="login()" style="text-transform: none">登录</a></li>
+
+                <li><a id="myid" onclick="toMy()">我的页面</a></li>
+                <li><a id="conference" onclick="submitConf()">发布会议</a></li>
+                <li><a  href="/index">主页</a></li>
+                <li class="search-li">
+                    <div class="nav-search">
+                        <!--<form class="nav-form"  >-->
+                            <div style="position: relative;">
+                        <span >
+                            <input type="text" class="search form-control-nav" placeholder="搜索会议" id="searchKey" name="searchKey">
+                            <button class="cha" onclick="search1()">搜索</button>
+                        </span>
+                            </div>
+                        <!--</form>-->
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+    <div class="nav-top-er">
+        <div class="container container-l">
+            <h1 class="nav-er-h1 nav-er-h1-l zh-cn">
+                <a href="#" id="conferenceNamexx" style="text-decoration:none"> 2018（北航软院）小学期通宵动员大会 </a>
+            </h1>
+            <div class="row nav-er-d nav-er-d-l">
+                <p class="col-sm-12 col-md-8">
+                        <!--<span class="er-dst">-->
+                            <!--<i class="icon icon-rd"></i>-->
+                            <!--<span id="startTime">2018-07-01</span>-->
+                            <!--<span class="time_difference" id="time_difference"></span>-->
+                            <!--<span class="time_zone"></span>-->
+                        <!--</span>-->
+                    <!--<span class="er-dst er-dstm">-->
+                            <!--<i class="icon icon-rd icon-rd2"></i>-->
+                            <!--<span class="conf-position" id="city"></span>-->
+                    <!--</span>-->
+                </p>
+                <div class="col-sm-12 col-md-4 nav-er-p2" id="conf-detail-btn-group">
+                    <a href="#" id="conf-favorite-btn" class="conf-favorite-btn favorite-no" onclick="submitFavorite()">
+                        <i id="favorite-change" ></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--会议导航-->
+    <div class="nav-sper navbar-default" role="navigation">
+        <div class="container2" role="navigation">
+            <div class="find_nav">
+                <div class="find_nav_left">
+                    <div class="find_nav_list alex_index_nav_list other_nav_list nav1 navbar-example" id="nav" style="overflow: hidden; visibility: visible;">
+                        <ul class="nav1ul" style="list-style: none; margin: 0px; width: 480px; transition-duration: 0ms; transform: translate3d(0px, 0px, 0px);">
+                            <li class="cur" style="width: 120px; display: table-cell; vertical-align: top;"><a href="javascript:;" class="s1" data-to="go1">修改会议信息</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--正文-->
+
+    <!--
+        <div class="container" style="height:900px;margin:10%">
+            会议简介
+            <div class="container-left" style="margin-left:15%;margin-right:15%;background: green">
+
+
+            </div>
+            <div class="container-right" style="margin-left:15%;margin-right:15"></div>
+
+        </div>
+    -->
+    <div class="information">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 blog-main conf_page">
+                    <!-- 内容开始 -->
+                    <style>
+                        .table p{
+                            max-width:980px!important;
+                            word-break: break-all;
+                            line-height:20px;
+                        }
+                        .table{border:1px solid #ddd;}
+                        .table td{border:1px solid #ddd;}
+                        .conf-details-schedule .schedule ul{
+                            list-style: disc;
+                            padding-left: 40px;
+                        }
+                        .conf_live{
+                            padding: 5px 10px;
+                            border:1px solid #ddd;
+                            border-radius: 4px;
+                            font-size: 13px;
+                            margin-left: 15px;
+                        }
+                        .live{
+                            background: #f5faf8;
+                            border-top: 1px solid #e0e0e0;
+                        }
+                        .media-h4{
+                            max-width: 70%;
+                        }
+                        .media-div-p {
+                            max-width: 70%;
+                        }
+                    </style>
+                    <div class="information-l" id="go1" style="padding-bottom: 30px;">
+                        <h1 class="inbt-h1"><span class="inbt-span">会议</span>信息</h1>
+                        <div class="description descript_table" style="margin-left: 3%;margin-right: 3%">
+                            <form class="form-horizontal">
+                                <!--<a name="dconferenceName"></a>-->
+                                <div class="form-group" id="dconferenceName">
+                                    <label for="conferenceName" class="col-sm-2 control-label"><span class="star">*</span>会议名称</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="conferenceName" placeholder="请输入会议的全名">
+                                    </div>
+                                </div>
+                                <!--<div class="form-group">-->
+                                    <!--<label for="shortname" class="col-sm-2 control-label">缩写</label>-->
+                                    <!--<div class="col-sm-10">-->
+                                        <!--<input type="text" class="form-control" id="shortname" placeholder="请输入会议的英文缩写">-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <div class="form-group" id="dstartTime">
+                                    <label for="startTime" class="col-sm-2 control-label"><span class="star">*</span>会议开始日期</label>
+                                    <div class="col-sm-3">
+                                        <input type="date" class="form-control" id="startTime">
+                                    </div>
+                                </div>
+                                <div class="form-group" id="dendTime">
+                                    <label for="endTime" class="col-sm-2 control-label"><span class="star">*</span>会议结束日期</label>
+                                    <div class="col-sm-3">
+                                        <input type="date" class="form-control" id="endTime">
+                                    </div>
+                                </div>
+                                <div class="form-group" id="dcity">
+                                    <label for="city" class="col-sm-2 control-label"><span class="star">*</span>会议所在地</label>
+                                    <div class="col-sm-5">
+                                        <input id="city" class="form-control"  type="text" data-toggle="city-picker">
+                                    </div>
+                                </div>
+                                <!--<div class="form-group" id="dlocation">-->
+                                    <!--<label for="location" class="col-sm-2 control-label">会议详细地址</label>-->
+                                    <!--<div class="col-sm-10">-->
+                                        <!--<input type="text" class="form-control" id="location" placeholder="会议的详细地址">-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <div class="form-group" id="downerOrganization">
+                                    <label for="ownerOrganization" class="col-sm-2 control-label"><span class="star">*</span>主办单位</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="ownerOrganization" placeholder="请输入会议的主办单位">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="supporter" class="col-sm-2 control-label">支持单位</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="supporter" placeholder="请输入会议的支持单位">
+                                    </div>
+                                </div>
+                                <!--<div class="form-group">-->
+                                    <!--<label for="organizer" class="col-sm-2 control-label">承办单位</label>-->
+                                    <!--<div class="col-sm-10">-->
+                                        <!--<input type="text" class="form-control" id="organizer" placeholder="请输入会议的承办单位">-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="form-group">-->
+                                    <!--<label for="site" class="col-sm-2 control-label">会议网站</label>-->
+                                    <!--<div class="col-sm-10">-->
+                                        <!--<input type="url" class="form-control focus" id="site" placeholder="请输入会议的网站">-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <div class="form-group" id="dsummernote">
+                                    <label for="summernote" class="col-sm-2 control-label">会议详情</label>
+                                    <div class="col-sm-10">
+                                        <div  class="focus" id="summernote"></div>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="information-l" id="go2" style="padding-bottom: 30px;">
+                        <h1 class="inbt-h1"><span class="inbt-span">联系人</span>信息 </h1>
+                        <div class="description descript_table" style="margin-left: 3%;margin-right: 3%">
+                            <form class="form-horizontal">
+                                <div class="form-group"id="downerPeopleName">
+                                    <label for="ownerPeopleName" class="col-sm-2 control-label"><span class="star">*</span>姓名</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="ownerPeopleName" placeholder="请输入会议负责人的全名">
+                                    </div>
+                                </div>
+                                <div class="form-group" id="downerPeopleTel">
+                                    <label for="ownerPeopleTel" class="col-sm-2 control-label"><span class="star">*</span>TEL</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="ownerPeopleTel" placeholder="请输入会议负责人的手机">
+                                    </div>
+                                </div>
+                                <div class="form-group" id="downerPeopleEmail">
+                                    <label for="ownerPeopleEmail" class="col-sm-2 control-label"><span class="star">*</span>Email</label>
+                                    <div class="col-sm-10">
+                                        <input type="email" class="form-control" id="ownerPeopleEmail" placeholder="请输入会议负责人的邮箱">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+
+
+                    <div class="information-l" id="go2" style="padding-bottom: 30px;">
+                        <h1 class="inbt-h1"><span class="inbt-span">征稿</span>信息 </h1>
+                        <div class="description descript_table" style="margin-left: 3%;margin-right: 3%">
+                            <form class="form-horizontal">
+
+                                <div class="form-group" id="dcontributionStartTime">
+                                    <label for="contributionStartTime" class="col-sm-2 control-label"><span class="star">*</span>投稿开始日期</label>
+                                    <div class="col-sm-3">
+                                        <input type="date" class="form-control" id="contributionStartTime">
+                                    </div>
+                                </div>
+                                <div class="form-group" id="dcontributionEndTime">
+                                    <label for="contributionEndTime" class="col-sm-2 control-label"><span class="star">*</span>投稿截止日期</label>
+                                    <div class="col-sm-3">
+                                        <input type="date" class="form-control" id="contributionEndTime">
+                                    </div>
+                                </div>
+                                <!--<div class="form-group" id="dcontributionTheme">-->
+                                    <!--<label for="contributionTheme" class="col-sm-2 control-label">征稿主题</label>-->
+                                    <!--<div class="col-sm-10">-->
+                                        <!--<input type="text" class="form-control" id="contributionTheme" placeholder="请输入会议的征稿主题">-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <div class="form-group">
+                                    <label for="summernote2" class="col-sm-2 control-label">征稿简介</label>
+                                    <div class="col-sm-10">
+                                        <div id="summernote2"></div>
+                                    </div>
+                                </div>
+
+
+                            </form>
+                        </div>
+                    </div>
+
+
+
+                    <div class="information-l" id="go2" style="padding-bottom: 30px;">
+                        <h1 class="inbt-h1"><span class="inbt-span">注册</span>信息 </h1>
+                        <div class="description descript_table" style="margin-left: 3%;margin-right: 3%">
+                            <form class="form-horizontal">
+                                <!--<div class="form-group" id="dauthorName">-->
+                                    <!--<label for="authorPrice" class="col-sm-2 control-label">注册费</label>-->
+                                    <!--<div class="col-sm-10">-->
+                                        <!--<input type="number" class="form-control" id="authorPrice" placeholder="请输入会议向作者所发行票的名称">-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <div class="form-group" id="dregisterStartTime">
+                                    <label for="registerStartTime" class="col-sm-2 control-label"><span class="star">*</span>注册开始日期</label>
+                                    <div class="col-sm-3">
+                                        <input type="date" class="form-control" id="registerStartTime">
+                                    </div>
+                                </div>
+                                <div class="form-group" id="dregisterEndTime">
+                                    <label for="registerEndTime" class="col-sm-2 control-label"><span class="star">*</span>注册结束日期</label>
+                                    <div class="col-sm-3">
+                                        <input type="date" class="form-control" id="registerEndTime">
+                                    </div>
+                                </div>
+                                <!--<div class="form-group">-->
+                                    <!--<label for="summernote3" class="col-sm-2 control-label">会议日程</label>-->
+                                    <!--<div class="col-sm-10">-->
+                                        <!--<div id="summernote3"></div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="form-group">-->
+                                    <!--<label for="summernote4" class="col-sm-2 control-label">住宿与交通</label>-->
+                                    <!--<div class="col-sm-10">-->
+                                        <!--<div id="summernote4"></div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <div class="form-group" >
+                                    <div class=" col-sm-2" style="float: right">
+                                        <button type="button" class="btn btn-info" style="background-color: #2b579a" onclick="save()">提交修改</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="return-top"><a href="messageBox"><img src="assets/images/alerts.svg"></a></div>
+
+</body>
+
+</html>

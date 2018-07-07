@@ -25,7 +25,7 @@ function nextstep(){
         'supporter':sessionStorage.supporter,
         'organizer':sessionStorage.organizer,
         'site':sessionStorage.site,
-        'abstract':sessionStorage.xiangqing,
+        'abstract':escape(sessionStorage.xiangqing),
 
         'ownerPeopleName':sessionStorage.ownerPeopleName,
         'ownerPeopleTel':sessionStorage.ownerPeopleTel,
@@ -35,20 +35,17 @@ function nextstep(){
         'contributionStartTime':sessionStorage.contributionStartTime,
         'contributionEndTime':sessionStorage.contributionEndTime,
         'contributionTheme':sessionStorage.contributionTheme,
-        'contributionAbstract':sessionStorage.p2_xiangqing,
+        'contributionAbstract':escape(sessionStorage.p2_xiangqing),
 
         //process3
-        'authorName':sessionStorage.authorName,
         'authorPrice':Number(sessionStorage.authorPrice),
-        'authorNumber':Number(sessionStorage.authorNumber),
-        'authorAbstract':sessionStorage.p3_xiangqing1,
-
-
-        'generalName':sessionStorage.generalName,
-        'generalPrice':Number(sessionStorage.generalPrice),
-        'generalNumber':Number(sessionStorage.generalNumber),
-        'generalAbstract':sessionStorage.p3_xiangqing2,
+        'registerStartTime':sessionStorage.registerStartTime,
+        'registerEndTime':sessionStorage.registerEndTime,
+        'schedule':escape(sessionStorage.p3_xiangqing1),
+        'hotelAndTraffic':escape(sessionStorage.p3_xiangqing2),
     }
+    // console.log("my data:");
+    // console.log(data);
     if($("#checker").is(':checked'))
     {
         $.ajax({
@@ -60,12 +57,13 @@ function nextstep(){
             success: function(data){
                 if(data.result=="0")
                 {
+                    console.log("error");
+                    console.log(data);
                     window.location.href="/primary_info";
                 }
                 else {
                     console.log("/ConferenceIndex?id=" + data.result);
                     window.location.href ="/ConferenceIndex?id="+ data.result;
-                    console.log(data);
                 }
 
             }
@@ -75,8 +73,6 @@ function nextstep(){
     {
         alert("请阅读网站的服务条款");
     }
-
-
 }
 
 function laststep(){

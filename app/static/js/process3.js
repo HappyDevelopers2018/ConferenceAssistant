@@ -32,37 +32,44 @@ $(document).ready(function() {
     {
         $("#authorName").val(sessionStorage.authorName);
     }
-    if(typeof(sessionStorage.authorPrice)!="undefined")
+    if(typeof(sessionStorage.registerStartTime)!="undefined")
     {
-        $("#authorPrice").val(sessionStorage.authorPrice);
+        $("#registerStartTime").val(sessionStorage.registerStartTime);
     }
-    if(typeof(sessionStorage.authorNumber)!="undefined")
+    if(typeof(sessionStorage.registerEndTime)!="undefined")
     {
-        $("#authorNumber").val(sessionStorage.authorNumber);
+        $("#registerEndTime").val(sessionStorage.registerEndTime);
     }
-
     if(typeof(sessionStorage.p3_xiangqing2)!="undefined")
     {
         $("#summernote2").summernote('code',sessionStorage.p3_xiangqing2);
     }
-    if(typeof(sessionStorage.generalName)!="undefined")
-    {
-        $("#generalName").val(sessionStorage.generalName);
-    }
-    if(typeof(sessionStorage.generalPrice)!="undefined")
-    {
-        $("#generalPrice").val(sessionStorage.generalPrice);
-    }
-    if(typeof(sessionStorage.generalNumber)!="undefined")
-    {
-        $("#generalNumber").val(sessionStorage.generalNumber);
-    }
 
 });
+
+function checker(a,b) {
+    var arr = a.split("-");
+    var starttime = new Date(arr[0], arr[1], arr[2]);
+    var starttimes = starttime.getTime();
+
+    var arrs = b.split("-");
+    var lktime = new Date(arrs[0], arrs[1], arrs[2]);
+    var lktimes = lktime.getTime();
+
+    if (starttimes >= lktimes) {
+
+        return false;
+    }
+    else
+        return true;
+
+}
+
 function nextstep(){
 
     var detecter=true;
 
+    //判断逻辑
     if($("#authorName").val()=='')
     {
         detecter=false;
@@ -75,85 +82,68 @@ function nextstep(){
         $("#dauthorName").addClass("has-success");
     }
 
-    if($("#authorPrice").val()=='')
+    if($("#registerStartTime").val()=='')
     {
         detecter=false;
-        $("#dauthorPrice").addClass("has-error");
+        $("#dregisterStartTime").addClass("has-error");
         window.location.href="#dauthorPrice";
     }
     else
     {
-        $("#dauthorPrice").removeClass("has-error");
-        $("#dauthorPrice").addClass("has-success");
+        $("#dregisterStartTime").removeClass("has-error");
+        $("#dregisterStartTime").addClass("has-success");
     }
 
-    if($("#authorNumber").val()=='')
+    if($("#registerEndTime").val()=='')
     {
         detecter=false;
-        $("#dauthorNumber").addClass("has-error");
+        $("#dregisterEndTime").addClass("has-error");
         window.location.href="#dauthorNumber";
     }
     else
     {
-        $("#dauthorNumber").removeClass("has-error");
-        $("#dauthorNumber").addClass("has-success");
+        $("#dregisterEndTime").removeClass("has-error");
+        $("#dregisterEndTime").addClass("has-success");
     }
-
-
-    if($("#generalName").val()=='')
-    {
+    if(!checker($("#registerStartTime").val(),$("#registerEndTime").val())){
         detecter=false;
-        $("#dgeneralName").addClass("has-error");
-        window.location.href="#dgeneralName";
+        $("#dregisterStartTime").addClass("has-error");
+        $("#dregisterEndTime").addClass("has-error");
+        window.location.href="#dstartTime";
+        alert("截止日期不可早于开始日期");
     }
-    else
-    {
-        $("#dgeneralName").removeClass("has-error");
-        $("#dgeneralName").addClass("has-success");
-    }
-
-    if($("#generalPrice").val()=='')
-    {
+    if(!checker($("#registerEndTime").val(),sessionStorage.startTime)){
         detecter=false;
-        $("#dgeneralPrice").addClass("has-error");
-        window.location.href="#dgeneralPrice";
+        $("#dregisterStartTime").addClass("has-error");
+        $("#dregisterEndTime").addClass("has-error");
+        window.location.href="#dstartTime";
+        alert("注册截止日期不得晚于会议开始日期");
     }
-    else
-    {
-        $("#dgeneralPrice").removeClass("has-error");
-        $("#dgeneralPrice").addClass("has-success");
-    }
-
-    if($("#generalNumber").val()=='')
-    {
+    if(!checker(sessionStorage.contributionEndTime,$("#registerStartTime").val())){
         detecter=false;
-        $("#dgeneralNumber").addClass("has-error");
-        window.location.href="#dgeneralNumber";
-    }
-    else
-    {
-        $("#dgeneralNumber").removeClass("has-error");
-        $("#dgeneralNumber").addClass("has-success");
+        $("#dregisterStartTime").addClass("has-error");
+        $("#dregisterEndTime").addClass("has-error");
+        window.location.href="#dstartTime";
+        alert("注册开始日期不得早于投稿截止日期");
     }
 
-    sessionStorage.authorName=$("#authorName").val();
+    //存储
     sessionStorage.authorPrice=$("#authorPrice").val();
-    sessionStorage.authorNumber=$("#authorNumber").val();
+    sessionStorage.registerStartTime=$("#registerStartTime").val();
+    sessionStorage.registerEndTime=$("#registerEndTime").val();
     sessionStorage.p3_xiangqing1=$("#summernote").summernote('code').toString();
-
-    sessionStorage.generalName=$("#generalName").val();
-    sessionStorage.generalPrice=$("#generalPrice").val();
-    sessionStorage.generalNumber=$("#generalNumber").val();
     sessionStorage.p3_xiangqing2=$("#summernote2").summernote('code').toString();
 
     if(detecter)
     {
+       // console.log("sucess");
         window.location.href="process4";
     }
 
 }
 
 function laststep(){
+    
 
     window.location.href="process2";
 }

@@ -29,6 +29,26 @@ $(document).ready(function() {
         $("#contributionTheme").val(sessionStorage.contributionTheme);
     }
 });
+
+function checker(a,b) {
+    var arr = a.split("-");
+    var starttime = new Date(arr[0], arr[1], arr[2]);
+    var starttimes = starttime.getTime();
+
+    var arrs = b.split("-");
+    var lktime = new Date(arrs[0], arrs[1], arrs[2]);
+    var lktimes = lktime.getTime();
+
+    if (starttimes >= lktimes) {
+
+        return false;
+    }
+    else
+        return true;
+
+}
+
+
 function nextstep(){
 
     var detecter=true;
@@ -66,6 +86,20 @@ function nextstep(){
     {
         $("#dcontributionTheme").removeClass("has-error");
         $("#dcontributionTheme").addClass("has-success");
+    }
+    if(!checker($("#contributionStartTime").val(),$("#contributionEndTime").val())){
+        detecter=false;
+        $("#dcontributionStartTime").addClass("has-error");
+        $("#dcontributionEndTime").addClass("has-error");
+        window.location.href="#dstartTime";
+        alert("截止日期不可早于开始日期");
+    }
+    if(!checker($("#contributionEndTime").val(),sessionStorage.startTime)){
+        detecter=false;
+        $("#dcontributionStartTime").addClass("has-error");
+        $("#dcontributionEndTime").addClass("has-error");
+        window.location.href="#dstartTime";
+        alert("投稿截止日期不得晚于会议开始日期");
     }
 
     sessionStorage.contributionStartTime=$("#contributionStartTime").val();

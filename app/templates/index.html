@@ -4,7 +4,7 @@
 
 	<title>学术会议网站</title>
 	<meta charset="UTF-8">
-
+    <link rel="icon" href="assets/images/icon.png">
     <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="assets/css/now-ui-kit.css">
     <script src="assets/js/jquery.min.js"></script>
@@ -32,6 +32,15 @@
  <script>
      function toValid() {
          var val=document.getElementById("userName").value;
+         var realName=document.getElementById('realName').value;
+         var institude=document.getElementById('institude').value;
+         var Email=document.getElementById('Email').value;
+         var Password1=document.getElementById('Password1').value;
+         var Password2=document.getElementById('Password2').value;
+         if(val==""|| realName==""||institude==""||Email==""||Password1==""||Password2==""){
+             alert('表单不完整');
+             return false;
+         }
          var rename=new RegExp("[a-zA-Z_][a-zA-Z_0-9]{0,}","");
          var isname=rename.test(val);
          if(isname==true){
@@ -45,7 +54,8 @@
              }
              var reg=new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$");
              var email=document.getElementById('Email').value;
-             if(email.test(reg)==false){
+             
+             if(reg.test(email)==false){
                  alert('请重新输入邮箱');
                  return false;
              }
@@ -120,37 +130,39 @@
          })
 
      }
+    function registerFun() {
+        var form_data=new FormData($('#formReg')[0]);
+        var flag=toValid();
+        if(flag==false){
+            return;
+        }
 
-     function register() {
-         console.log($('#userName').val());
-         console.log($('#realName').val());
-         console.log($('#institude').val());
-         console.log($('#Email').val());
-         console.log($("input[name='identity'][checked]").val());
-         console.log($('#Password1').val());
-         //var testdata = {'userName':"1",'realName':"1","institude":"2",'email':"2@1.com",'identity':1,'password':"1"}
+        $.ajax({
+            type:'post',
+            url:'/registerAPI',
+            data:form_data,
+            contentType: false,
+            processData: false,
+            success:function (data) {
+                console.log(data);
+                if(data.result==1){
+                    alert('注册成功');
+                    window.location.reload();
+                }
+                else if(data.result==0){
+                    alert('该用户名已存在，请重新注册');
+                }
+                else if(data.result==-1){
+                    alert('请添加验证文件')
+                }
+            },
+            error:function () {
+                alert('注册失败');
+                window.location.reload();
+            }
 
-         $.ajax({
-             type:'POST',
-             url:'/register',
-             contenType:'application/json; charset=utf-8',
-             //data:testdata,
-
-             data:{"userName":$('#userName').val(),
-                 "realName":$('#realName').val(),
-                 "institude":$('#institude').val(),
-                 "email":$('#Email').val(),
-                 "identity":parseInt($("input[name='identity'][checked]").val()),
-                 "password":$('#Password1').val()},
-             dataType: "json",
-             success:function(){
-                 alert("发送成功");
-             },
-             error:function(){
-                 alert("发送失败");
-             }
-         })
-     }
+        })
+    }
      $(document).ready(function() {
          $('.popup-with-zoom-anim').magnificPopup({
              type: 'inline',
@@ -170,7 +182,21 @@
 .bodystyle{
 	width:70%;
 	margin:0 auto;
-}</style>
+}
+.form-control::-moz-placeholder {
+	color: #0c1a2a;
+	opacity: 1;
+	font-style:italic;
+}
+.form-control:-ms-input-placeholder {
+	color: #0c1a2a;
+	font-style:italic;
+}
+.form-control::-webkit-input-placeholder {
+	color: #0c1a2a;
+	font-style:italic;
+}
+</style>
 </head>
 <body>
 	<h1>学术会议平台</h1>
@@ -202,19 +228,19 @@
 	<div class="pop-up">
 		<div id="small-dialog" class="mfp-hide book-form">
 			<h3>用户注册</h3>
-			<form method="post" enctype='multipart/form-data' action="/registerAPI" onsubmit="return toValid()">
-				<input type="text" id="userName" name="userName" placeholder="用户名" required="" class="form-control" style="width: 100%"/>
-				<input type="text" id="realName" name="realName" placeholder="姓名" required="" class="form-control" style="width: 100%"/>
-				<input type="text" id= "institude" name="institude" placeholder="所属机构" required="" class="form-control" style="width: 100%"/>
-				<input type="text" id="Email" name="Email" placeholder="邮箱" required="" class="form-control" style="width: 100%"/>
-				<input type="password" id="Password1" name="Password1" class="password" placeholder="密码" required="" class="form-control" style="width: 100%"/>
-				<input type="password" id="Password2" name="Password2" class="password" placeholder="确认密码" required="" class="form-control" style="width: 100%"/>
+			<form method="post" enctype='multipart/form-data' id="formReg">
+				<input type="text" id="userName" name="userName" placeholder="用户名" required="required" class="form-control" style="width: 100%"/>
+				<input type="text" id="realName" name="realName" placeholder="姓名" required="required" class="form-control" style="width: 100%"/>
+				<input type="text" id= "institude" name="institude" placeholder="所属机构" required="required" class="form-control" style="width: 100%"/>
+				<input type="text" id="Email" name="Email" placeholder="邮箱" required="required" class="form-control" style="width: 100%"/>
+				<input type="password" id="Password1" name="Password1" class="password" placeholder="密码" required="required" class="form-control" style="width: 100%"/>
+				<input type="password" id="Password2" name="Password2" class="password" placeholder="确认密码" required="required" class="form-control" style="width: 100%"/>
 				<input type="radio" id="identity1" value="2" name="identity" />单位机构
 				<input type="radio" id="identity2" checked="checked" value="1" name="identity" />个人用户</span>
 
                 <br></br>
-                 <input type="file" name="file" required>
-                <input type="submit" value="注册">
+                 <input type="file" name="file" required="required" >
+                <input type="button" class="btn" value="注册" style="background-color: #2b579a" onclick="registerFun()" >
                 <!--<form enctype='multipart/form-data' method='POST'>
                     <input type="file" name="file">
                     <input type="submit" value="注册" onclick="register()">

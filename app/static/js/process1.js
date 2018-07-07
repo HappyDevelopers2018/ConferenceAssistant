@@ -75,6 +75,23 @@ $(document).ready(function() {
 
 });
 
+function checker(a,b) {
+    var arr = a.split("-");
+    var starttime = new Date(arr[0], arr[1], arr[2]);
+    var starttimes = starttime.getTime();
+
+    var arrs = b.split("-");
+    var lktime = new Date(arrs[0], arrs[1], arrs[2]);
+    var lktimes = lktime.getTime();
+
+    if (starttimes >= lktimes) {
+
+        return false;
+    }
+    else
+        return true;
+
+}
 
 function nextstep(){
 
@@ -180,11 +197,22 @@ function nextstep(){
         $("#downerPeopleEmail").addClass("has-error");
         window.location.href="#downerPeopleEmail";
     }
-    else
-    {
+    else {
         $("#downerPeopleEmail").removeClass("has-error");
         $("#downerPeopleEmail").addClass("has-success");
     }
+    if(!checker($("#startTime").val(),$("#endTime").val())){
+        detecter=false;
+        $("#dstartTime").addClass("has-error");
+        $("#dendTime").addClass("has-error");
+        window.location.href="#dstartTime";
+        alert("截止日期不可早于开始日期");
+    }
+
+
+    var patten = new RegExp(/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]+$/);
+    var emailAnaly=patten.test($("#ownerPeopleEmail").val());
+
 
 
 
@@ -217,7 +245,18 @@ function nextstep(){
 
     if(detecter)
     {
-        window.location.href="process2";
+        if(!emailAnaly){
+            detecter=false;
+            $("#downerPeopleEmail").addClass("has-error");
+            alert("请输入正确的邮箱地址");
+            window.location.href="#downerPeopleEmail";
+        }
+        else {
+            $("#downerPeopleEmail").removeClass("has-error");
+            $("#downerPeopleEmail").addClass("has-success");
+            window.location.href="process2";
+        }
+
     }
    //
 }

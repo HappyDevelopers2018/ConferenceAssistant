@@ -6,15 +6,14 @@ function onload(){
 		dataType:"json",
 		success:function(data){
 			$("#name").html(data[0].name);
-			$("#organization").html(data[0].organization);
 			if(data[0].email!='')
 				$("#inputEmail3").html(data[0].email);
 			else
 				$("#inputEmail3").html("无");
-			if(!data[0].TEL)
-				$("#inputTEL").html(data[0].TEL);
+			if(data[0].organization!='')
+				$("#organization").html(data[0].organization);
 			else
-				$("#inputTEL").html("无");
+				$("#organization").html("无");
 		}
 	})
 }

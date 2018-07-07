@@ -1,6 +1,30 @@
-
+function load_notification()
+{
+    var id =getUserIdByCookie();
+    var flag = false;
+    if (id != 0) 
+    {
+    
+        $.ajax({
+            type:"GET",
+            url:"/countMessage/"+id,
+            dataType:"json",
+            success:function(data){
+                if (data[0].count ==  0)
+                    $("#return-top").css("display","None");
+                
+            }
+        }
+        );
+    }
+    else 
+    {
+        $("#return-top").css("display","None");
+    }
+}
 
 function onload(){
+        load_notification();
     var id=getUserIdByCookie();
     $.ajax({
         type:"GET",
@@ -37,7 +61,7 @@ function save(){
     var detecter = 0;
     var id=getUserIdByCookie();
 
-    if(typeof($("#organization_update").val())!="undefined")
+    if($("#organization_update").val()!="")
     {
         sessionStorage.organization_update=$("#organization_update").val();
         var data={
@@ -65,7 +89,7 @@ function save(){
         });
     }
 
-    if(typeof($("#Email_update").val())!="undefined")
+    if($("#Email_update").val()!="")
     {
         sessionStorage.Email_update=$("#Email_update").val();
         var data={
@@ -99,19 +123,19 @@ function save(){
         });
     }
 
-    //window.location.href="primary_info";
+    window.location.href="primary_info";
 
-    // if(detecter == 0)
-    // {
-    //     alert("修改成功")
-    // }
-    // else if(detecter>=100)
-    // {
-    //     alert("修改TEL失败")
-    // }
-    // else
-    // {
-    //     alert("修改Email失败")
-    // }
+    if(detecter == 0)
+    {
+        alert("修改成功")
+    }
+    else if(detecter>=100)
+    {
+        alert("修改TEL失败")
+    }
+    else
+    {
+        alert("修改Email失败")
+    }
 
 }

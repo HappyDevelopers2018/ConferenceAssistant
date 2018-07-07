@@ -598,7 +598,32 @@ ul {
 	background: #f6f6f6 url(//file.aconf.org/public/images2.0/aconf_cn/ptu.jpg) top center;
 
 }
+.attendence{
 
+	background-color:white;
+	font-size: 16px;
+	margin-bottom: 7px;
+	border:1px solid #ddd;
+}
+.attendence span{
+	margin-right:  8px;
+}
+.attendence .row{
+	margin: 5px auto;
+}
+.btn-new{
+	border-radius: 0.8rem;
+
+	background-color: #2b579a;
+	margin: 0 auto;
+	color: white;
+}
+.btn-new:hover{
+	background-color: #8cb1eb;
+}
+.btn-new:active{
+	background-color: #2b579a;
+}
 .information-l {
 	background: #fff;
 	border: 1px solid #d1d1d1;
@@ -4080,3 +4105,29 @@ li.header-user-dropdown{margin-left: 29px;}
 	    padding: 14px 0;
 	}
 }
+
+
+.registerNum{
+ padding-top: 2px;
+	font-size: 18px;
+
+}
+.chooseNum{
+	background-color: white;
+	border:1px solid #ddd;
+}
+.TobeCenter{
+	margin-left: auto;
+	margin-right: auto;
+}
+.onePaper{
+	border-bottom:1px solid #d1d1d1;
+	border-top: 1px solid #d1d1d1;
+	margin-bottom: 5px;
+
+}
+.remarksSpan{
+
+	 color: #2b579a;
+
+ }

@@ -2,40 +2,56 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" href="assets/images/icon.png">
     <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="assets/css/now-ui-kit.css">
     <link rel="stylesheet" type="text/css" href="assets/css/home.css">
+    <link rel="stylesheet" type="text/css" href="css/simplePagination.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/baseTest.css">
     <script src="assets/js/jquery.min.js"></script>
     <script src="/js/searchResult.js" type="text/javascript"></script>
     <script src="assets/js/jquery.cookie.js" type="text/javascript"></script>
     <script src="assets/js/cookie.js" type="text/javascript"></script>
+    <script src="assets/js/navibar.js" type="text/javascript"></script>
+    <script src="js/jquery.simplePagination.js" type="text/javascript"></script>
+    <!--<script src="assets/js/common.js" type="text/javascript"></script>-->
+    <link rel="stylesheet" type="text/css" href="assets/css/notification.css">
+    <script src="assets/js/notification.js" type="text/javascript"></script>
+    
     <title>检索会议</title>
 </head>
 
 <script>
-    function logout() {
-        var t=new Date();
-	    t.setTime(0);
-	    document.cookie="name=;expires="+t.toGMTString()+";path=/";
-	    document.cookie="id=;expires="+t.toGMTString()+";path=/";
-        name="";
-	    $('#login').html("登录");
-	    window.location.href="index";
+    function on_load()
+    {
+        load_notification();
+        getName2();
     }
-    function login() {
-        name=getUserNameByCookie();
-        console.log(name)
-        if(!name){
-            window.location.href="login";
+    
+    function getNum(){
+        console.log("into getNum");
+        $.ajax({
 
-        }
-        else{
-            $('#login').html(name);
-        }
+            url:"/getConfernum",
+            type:"GET",
+            datatype: 'json',
+            success:function (data) {
+
+                $("#conferNum").html(data['num'])
+            },
+            error:function () {
+                console.log("error when getConfernum")
+            }
+        })
     }
-    function getName() {
+    function getName2() {
         name=getUserNameByCookie();
         var key=getParam()["searchKey"];
+        if(key==""){
+            alert('请输入搜索内容');
+            return;
+        }
+
         if(typeof(key)!="undefined")
         {
             $.ajax({
@@ -45,7 +61,28 @@
              dataType:'json',
              success:function (data) {
                  console.log('success');
-                 console.log(data)
+                 console.log(data);
+
+                 //data = JSON.parse(data);
+                 $("#conferid").empty();
+                 length = data.length;
+                 $("#conferNum").html(length);
+                 var conferdiv;
+                 for (var i = 0;i<length;i++) {
+                     id = data[i]["id"];
+                     // console.log(id)
+                     hrefstr = "/ConferenceIndex?id=" + id;
+                     // window.location.href ="/ConferenceIndex?id="+ data.result;
+                     conferdiv = " <div class=\"confer shadow \" >\n" +
+                         "                        <a href=" + hrefstr + " ><h3>" + data[i]['conferenceName'] + "</h3></a>\n" +
+                         "                        <div class=\"c-info\">\n" +
+                         "                            <span class=\"mr-2\"><img src=\"assets/images/loc.png\" class=\"loc\">" + data[i]['location'] + "</span>\n" +
+                         "                            <span><span><img src=\"assets/images/date.png\" class=\"i-date\">" + data[i]['startTime'] + "</span> - <span>" + data[i]['endTime'] + "</span></span></span>\n" +
+                         "                            <p class=\"mb-0 pb-0\"><img src=\"assets/images/department.png\" class=\"i-date\">主办方 <span>" + data[i]['organizer'] + "</span></p>\n" +
+                         "                        </div>\n" +
+                         "                    </div>"
+                     $("#conferid").append(conferdiv);
+                 }
              },
              error: function () {
                 console.log('error')
@@ -58,21 +95,7 @@
         }
 
     }
-    function submitConf() {
-        identity=getUserIdentityByCookie();
-        if(identity==3){
-            window.location.href='process1'
-        }
-        else if(identity==1){
-            alert('您没有权限创建会议，请注册为机构用户')
-        }
-        else if(identity==2){
-            alert('该单位用户申请正在审核中')
-        }
-        else if(identity==4){
-            alert('该单位用户申请被拒绝')
-        }
-    }
+
     function search() {
         var key=$('#searchKey').val();
         console.log(document.getElementById('searchKey').value);
@@ -93,45 +116,78 @@
     }
 
 </script>
-<body onload="getName()">
-<nav class="navbar navbar-expand-lg " style="background-color: #2b579a">
-    <div class="container">
-        <div class="navbar-translate">
-            <a class="navbar-brand" href="#pablo">
-                Conference
-            </a>
+<body onload="on_load()">
+<!--<nav class="navbar navbar-expand-lg " style="background-color: #2b579a">-->
+    <!--<div class="container">-->
+        <!--<div class="navbar-translate">-->
+            <!--<a class="navbar-brand" href="/index">-->
+                <!--Conference-->
+
+
+
+
+        <!--<div class="collapse navbar-collapse justify-content-end" id="navigation">-->
+                <!--<div style="position: relative;">-->
+            <!--<span >-->
+                <!--<input type="text" class="search form-control-nav" placeholder="搜索会议" id="searchKey" name="searchKey">-->
+                <!--<button class="cha" onclick="search()">搜索</button>-->
+            <!--</span>-->
+                <!--</div>-->
+
+
+            <!--</a>-->
+        <!--</div>-->
+            <!--<ul class="navbar-nav">-->
+                <!--<li class="nav-item active">-->
+                    <!--<a class="nav-link" href="/index">-->
+                        <!--主页-->
+                    <!--</a>-->
+                <!--</li>-->
+                <!--<li class="nav-item">-->
+                    <!--<a class="nav-link" id="conference" onclick="submitConf()">发布会议</a>-->
+                <!--</li>-->
+                <!--<li class="nav-item">-->
+                    <!--<a class="nav-link" onclick="toMy()">我的</a>-->
+                <!--</li>-->
+                <!--<li class="nav-item">-->
+                    <!--<a class="nav-link" id="login" onclick="login()" style="text-transform: none">登录</a>-->
+                <!--</li>-->
+                <!--<li class="nav-item">-->
+                    <!--<a class="nav-link " onclick="logout()">登出</a>-->
+                <!--</li>-->
+            <!--</ul>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</nav>-->
+<nav class="new-nav" >
+    <div class="container-nav">
+        <div style="margin-right: 0.8rem">
+            <a class="navbar-brand-new" style="font-size: large;color: white;text-decoration: none" href="/index">Conference</a>
         </div>
-
-
-
-
-        <div class="collapse navbar-collapse justify-content-end" id="navigation">
-            <form class="nav-form"  >
-                <div style="position: relative;">
-            <span >
-                <input type="text" class="search form-control-nav" placeholder="搜索会议" id="searchKey" name="searchKey">
-                <button class="cha" onclick="search()">搜索</button>
-            </span>
-                </div>
-            </form>
-
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#pablo">
-                        主页
-                    </a>
+        <div>
+            <ul class="topnav">
+                <li class="icon">
+                    <a href="javascript:void(0);" style="font-size:15px;" onclick="myFunction()">☰</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="conference" onclick="submitConf()">发布会议</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#pablo">我的</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="login" onclick="login()" style="text-transform: none">登录</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link " onclick="logout()">登出</a>
+                <li><a onclick="logout()">登出</a></li>
+                <li style="display: none" id="alarm"><a><img src="assets/images/alarm.png" height="16px" width="16px"></a></li>
+
+                <li><a id="login" onclick="login()" style="text-transform: none">登录</a></li>
+
+                <li><a id="myid" onclick="toMy()">我的页面</a></li>
+                <li><a id="conference" onclick="submitConf()">发布会议</a></li>
+                <li><a class="li-active-zzj" href="/index">主页</a></li>
+                <li class="search-li">
+                    <div class="nav-search">
+                        <form class="nav-form"  >
+                        <div style="position: relative;">
+                        <span >
+                            <input type="text" class="search form-control-nav" placeholder="搜索会议" id="searchKey" name="searchKey">
+                            <button class="cha" onclick="search()">搜索</button>
+                        </span>
+                        </div>
+                        </form>
+                    </div>
                 </li>
             </ul>
         </div>
@@ -143,24 +199,7 @@
         <div class="container">
             <div class="row">
 
-                <div class="col-sm-9 blog-main">
-
-
-                    <div class="confer shadow ">
-                        <a href="#"><h3>中国心理卫生协会第十一次全国心理卫生学术大会</h3></a>
-                        <div class="c-info">
-                            <span class="mr-2"><img src="assets/images/loc.png" class="loc">beijing</span>
-                            <span><span><img src="assets/images/date.png" class="i-date">2018.7.4</span> - <span>2018.7.15</span></span></span>
-                            <p class="mb-0 pb-0"><img src="assets/images/department.png" class="i-date">主办方 <span>BUAA</span></p>
-                        </div>
-                    </div>
-                    <div class="confer shadow ">
-                        <a href="#"><h3>中国心理卫生协会第十一次全国心理卫生学术大会</h3></a>
-                        <div class="c-info">
-                            <span style="margin-right: 10px">beijing</span>  <span>2018-7-4</span>
-                        </div>
-                    </div>
-
+                <div class="col-sm-9 blog-main" id="conferid">
 
                 </div>
                 <div class="col-sm-3 blog-sidebar">
@@ -168,7 +207,7 @@
                         <div class="ddlin">
                             <h3>会议总数</h3>
                             <img src="assets/images/mp_mini.jpg" style="width: 100% ;">
-                            <span>200</span>
+                            <span id="conferNum" style="font-size: 20px; color: red">0</span>
                         </div>
                     </div>
                 </div>
@@ -177,9 +216,8 @@
     </div>
 </div>
 
+<div id="return-top"><a href="messageBox"><img src="assets/images/alerts.svg"></a></div>
 
 
-</div>
-</div>
 </body>
-</html>
+
